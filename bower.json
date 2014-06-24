@@ -1,0 +1,27 @@
+{
+  "name": "stackbox",
+  "version": "0.1.0",
+  "homepage": "https://github.com/stebru/stackbox",
+  "authors": [
+    "Stefan Bruvik"
+  ],
+  "description": "Stacked modal boxes",
+  "main": "jquery.stackbox.js",
+  "keywords": [
+    "modal",
+    "modalbox"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "animate.css": "~3.1.1",
+    "bootstrap": "~3.1.1",
+    "font-awesome": "~4.1.0"
+  }
+}
