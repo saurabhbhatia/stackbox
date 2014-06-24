@@ -1,4 +1,4 @@
 stackbox
 ========
 
-Stacked modals
+Stacked modal boxes
