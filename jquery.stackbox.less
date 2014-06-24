@@ -1,0 +1,258 @@
+@image-path:                        "img/";
+@modal-bg:							#fff;
+@modal-border-color:				rgba(0,0,0,.25);
+@modal-fallback-border-color:		#999;
+@modal-backdrop-bg:					rgba(0,0,0,.25);
+@modal-arrow-width:					10px;
+@modal-arrow-color:					@modal-bg;
+@modal-arrow-outer-width:			(@modal-arrow-width + 1);
+@modal-arrow-outer-color:			fadein(@modal-border-color, 5%);
+@modal-arrow-outer-fallback-color:	darken(@modal-fallback-border-color, 20%);
+@modal-close-bg:					@modal-bg;
+@modal-close-border-color:			@modal-border-color;
+@modal-close-fallback-border-color:	@modal-fallback-border-color;
+@modal-close-color:					@modal-bg;
+@gray:                  			#555;
+
+@import "mixins.less";
+
+.border-radius(@radius) {
+	.border-top-radius(@radius);
+	.border-right-radius(@radius);
+	.border-bottom-radius(@radius);
+	.border-left-radius(@radius);
+}
+
+html.noscroll {
+  overflow: hidden;
+}
+
+.modal-wrapper {
+	position: fixed;
+	top: 0;
+	left : 0;
+	right : 0;
+	bottom : 0;
+	overflow: auto;
+	background: transparent;
+}
+
+.modal-backdrop {
+
+	cursor: default;
+	background: none;
+	opacity: 1;
+	filter: none;
+
+	.modal:first-child {
+		border-color: @gray;
+		border-bottom-width: 3px;
+		.box-shadow(none);
+	}
+}
+
+.modal-backdrop.modal-close-on-backdrop {
+	cursor: url('@{image-path}close.ico') 8 8, default; // Replace cursor with black X to indicate it closes the modal.
+}
+
+&.modals .modal-backdrop:last-child {
+	background: @modal-backdrop-bg;
+}
+
+.modal {
+	pointer-events: auto;
+	width: auto;
+	float: left;
+	background: @modal-bg;
+	position: absolute;
+	margin: 0;
+	.transition(none);
+	.clearfix();
+	border: 1px solid @modal-fallback-border-color;
+	border: 1px solid @modal-border-color;
+	.box-shadow(0 0px 15px 10px rgba(0,0,0,0.15));
+	cursor: auto;
+	.border-radius(6px);
+	overflow: visible;
+	z-index: auto;
+	right: auto;
+	bottom: auto;
+
+	&.animated {
+-webkit-animation-duration:.3s;
+   -moz-animation-duration:.3s;
+    -ms-animation-duration:.3s;
+     -o-animation-duration:.3s;
+        animation-duration:.3s;
+		&.fast {
+-webkit-animation-duration:.1s;
+   -moz-animation-duration:.1s;
+    -ms-animation-duration:.1s;
+     -o-animation-duration:.1s;
+        animation-duration:.1s;
+		}
+		&.slow {
+-webkit-animation-duration:1s;
+   -moz-animation-duration:1s;
+    -ms-animation-duration:1s;
+     -o-animation-duration:1s;
+        animation-duration:1s;
+		}
+		&.slower {
+-webkit-animation-duration:2s;
+   -moz-animation-duration:2s;
+    -ms-animation-duration:2s;
+     -o-animation-duration:2s;
+        animation-duration:2s;
+		}
+	}
+
+	.list-group {
+
+		padding: 5px;
+		margin-bottom: 5px;
+
+		.list-group-item {
+			border: none;
+			padding: 0;
+
+			a {
+				display: block;
+				padding: 6px 20px;
+
+				&:hover {
+					background-color: #f5f5f5;
+					text-decoration: none;
+				}
+
+				i {
+					padding-right: 5px;
+				}
+			}
+		}
+	}
+
+	form {
+		margin: 0;
+		padding: 0;
+	}
+
+	.alert {
+		margin: 0;
+	}
+
+}
+
+.modal-close {
+	.border-radius(24px);
+	.size(24px, 24px);
+	background: @modal-close-bg;
+	position: absolute;
+	float: right;
+	top: -8px;
+	right: -8px;
+	text-align: center;
+	border: 1px solid @modal-close-fallback-border-color;
+	border-color: @modal-close-border-color;
+	border-bottom-width: 2px;
+
+	.close {
+		z-index: 1;
+		position: absolute;
+		.border-radius(24px);
+		.size(24px, 24px);
+		float: none;
+		display: inline-block;
+		text-align: center;
+		margin: 0;
+		top: 0px;
+		right: 0px;
+
+		i {
+			position: absolute;
+			left: 7px;
+			top: 4px;
+			line-height: inherit;
+			font-size: 16px !important;
+		}
+	}
+}
+
+.modal-arrow {
+	z-index: 999999;
+
+	&,
+	&:after {
+		position: absolute;
+		display: block;
+		width: 0;
+		height: 0;
+		border-color: transparent;
+		border-style: solid;
+	}
+}
+.modal-arrow {
+	border-width: @modal-arrow-outer-width;
+}
+.modal-arrow:after {
+	border-width: @modal-arrow-width;
+	content: "";
+}
+.modal-arrow {
+
+	&.top {
+		margin-left: -@modal-arrow-outer-width;
+		border-bottom-width: 0;
+		border-top-color: @modal-arrow-outer-fallback-color; // IE8 fallback
+		border-top-color: @modal-arrow-outer-color;
+		&:after {
+			content: " ";
+			bottom: 1px;
+			margin-left: -@modal-arrow-width;
+			border-bottom-width: 0;
+			border-top-color: @modal-arrow-color;
+		}
+	}
+
+	&.right {
+		margin-top: -@modal-arrow-outer-width;
+		border-left-width: 0;
+		border-right-color: @modal-arrow-outer-fallback-color; // IE8 fallback
+		border-right-color: @modal-arrow-outer-color;
+		&:after {
+			content: " ";
+			left: 1px;
+			bottom: -@modal-arrow-width;
+			border-left-width: 0;
+			border-right-color: @modal-arrow-color;
+		}
+	}
+
+	&.bottom {
+		margin-left: -@modal-arrow-outer-width;
+		border-top-width: 0;
+		border-bottom-color: @modal-arrow-outer-fallback-color; // IE8 fallback
+		border-bottom-color: @modal-arrow-outer-color;
+		&:after {
+			content: " ";
+			top: 1px;
+			margin-left: -@modal-arrow-width;
+			border-top-width: 0;
+			border-bottom-color: @modal-arrow-color;
+		}
+	}
+
+	&.left {
+		margin-top: -@modal-arrow-outer-width;
+		border-right-width: 0;
+		border-left-color: @modal-arrow-outer-fallback-color; // IE8 fallback
+		border-left-color: @modal-arrow-outer-color;
+		&:after {
+			content: " ";
+			right: 1px;
+			border-right-width: 0;
+			border-left-color: @modal-arrow-color;
+			bottom: -@modal-arrow-width;
+		}
+	}
+}

@@ -1,0 +1,5 @@
+default:
+  - 'less'
+  - 'autoprefixer'
+  - 'jshint'
+  - 'uglify'
