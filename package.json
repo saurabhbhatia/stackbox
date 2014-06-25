@@ -1,35 +1,35 @@
 {
-  "name": "stackbox",
-  "version": "0.1.0",
-  "description": "Stacked modal boxes",
-  "main": "jquery.stackbox.js",
-  "dependencies": {
-    "grunt": "~0.4.5"
-  },
-  "devDependencies": {
-    "grunt-contrib-uglify": "^0.5.0",
-    "grunt-contrib-less": "^0.11.3",
-    "grunt-contrib-jshint": "^0.10.0",
-    "jshint-stylish": "^0.2.0",
-    "load-grunt-tasks": "^0.6.0",
-    "load-grunt-config": "^0.10.0",
-    "time-grunt": "^0.3.2",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-autoprefixer": "^0.7.6",
-    "grunt-contrib-copy": "^0.5.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/stebru/stackbox.git"
-  },
-  "keywords": [
-    "modal",
-    "modalbox"
-  ],
-  "author": "Stefan Bruvik",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/stebru/stackbox/issues"
-  },
-  "homepage": "https://github.com/stebru/stackbox"
+    "name": "stackbox",
+    "version": "0.1.0",
+    "description": "Stackable modal boxes",
+    "main": "jquery.stackbox.js",
+    "dependencies": {
+        "grunt": "~0.4.5"
+    },
+    "devDependencies": {
+        "grunt-contrib-uglify": "^0.5.0",
+        "grunt-contrib-less": "^0.11.3",
+        "grunt-contrib-jshint": "^0.10.0",
+        "jshint-stylish": "^0.2.0",
+        "load-grunt-tasks": "^0.6.0",
+        "load-grunt-config": "^0.10.0",
+        "time-grunt": "^0.3.2",
+        "grunt-contrib-watch": "^0.6.1",
+        "grunt-autoprefixer": "^0.7.6",
+        "grunt-contrib-copy": "^0.5.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/stebru/stackbox.git"
+    },
+    "keywords": [
+        "modal",
+        "modalbox"
+    ],
+    "author": "Stefan Bruvik",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/stebru/stackbox/issues"
+    },
+    "homepage": "https://github.com/stebru/stackbox"
 }
