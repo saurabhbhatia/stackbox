@@ -5,11 +5,11 @@ module.exports = {
         spawn: false
     },
     scripts: {
-        files: ['jquery.stackbox.js'],
+        files: ['src/jquery.stackbox.js'],
         tasks: ['uglify']
     },
     css: {
-        files: ['jquery.stackbox.less'],
+        files: ['src/jquery.stackbox.less'],
         tasks: ['less', 'autoprefixer']
     },
 }
