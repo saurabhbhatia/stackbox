@@ -457,7 +457,7 @@
                 options = {
                     url: options,
                     dataType: 'html',
-                    type: this.options.type
+                    type: this.options.requestType
                 };
             }
 
@@ -564,9 +564,7 @@
 
                 if ($newContent.length > 0) {
 
-                    if (this.options.getchildren) {
-                        $newContent = $newContent.children();
-                    }
+                    $newContent = $newContent.children();
 
                     if (this.options.clone) {
                         // Clone an element.
@@ -1196,8 +1194,7 @@
         autoadjust: true,
         autoscroll: true, // Scroll to modal when opened if outside of (or partically outside of) the window.
         params: null, // Object containing data used to get/retrieve ajax / php content.
-        type: 'GET',
-        getchildren: true,
+        requestType: 'GET',
         clone: false,
         returncontent: true, // If true, adds extracted dom content back into the dom tree when closing the modal.
         closebutton: true,
