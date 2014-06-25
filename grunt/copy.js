@@ -8,7 +8,7 @@ module.exports = {
             expand: true,
             flatten: true,
             src: 'bower_components/font-awesome/fonts/*',
-            dest: 'examples/fonts'
+            dest: 'demo/fonts'
         }]
     }
 }
