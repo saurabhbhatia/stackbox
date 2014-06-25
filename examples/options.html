@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Testing of Modal Animations</title>
+		<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../bower_components/animate.css/animate.css">
+		<link rel="stylesheet" href="../jquery.stackbox.min.css">
+
+		<style>
+			section {
+				width: 100%;
+				text-align: center;
+				padding: 20px;
+				margin: 20px;
+			}
+		</style>
+	</head>
+	<body style="padding-top: 350px;">
+
+		<div id="anim-modal" style="display: none;">
+			<div class="modal-header">Bounce</div>
+			<div class="modal-body">
+				<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pellentesque mi vel turpis mattis porttitor. Ut dapibus, libero non tincidunt varius, ante velit adipiscing tortor, non iaculis lacus nisl in diam.</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-close-modal="true">Close</button>
+			</div>
+		</div>
+
+		<section>
+			<a id="modal-opener" data-modal="true" data-modal-position="left" data-modal-width="300" href="#anim-modal">position left</a>
+		</section>
+
+		<section>
+			<a id="modal-opener" data-modal="true" data-modal-position="right" data-modal-width="300" href="#anim-modal">position right</a>
+		</section>
+
+		<section>
+			<a id="modal-opener" data-modal="true" data-modal-position="top" data-modal-width="300" href="#anim-modal">position top</a>
+		</section>
+
+		<section>
+			<a id="modal-opener" data-modal="true" data-modal-position="bottom" data-modal-width="300" href="#anim-modal">position bottom</a>
+		</section>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="options.js"></script>
+		<script src="../jquery.stackbox.min.js"></script>
+	</body>
+</html>

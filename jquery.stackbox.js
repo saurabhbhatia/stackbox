@@ -143,8 +143,8 @@
         // Detect mousedown on scrollbars
         $element = $(event.target);
 
-        clickedVScrollBar = !! ($element.hasClass(wrapperClass) && ($window.outerWidth() - event.clientX) < ($element[0].offsetWidth - $element[0].clientWidth));
-        clickedHScrollBar = !! ($element.hasClass(wrapperClass) && ($window.outerHeight() - event.clientY) < ($element[0].offsetHeight - $element[0].clientHeight));
+        clickedVScrollBar = (($window.outerWidth() - event.clientX) < ($element[0].offsetWidth - $element[0].clientWidth));
+        clickedHScrollBar = (($window.outerHeight() - event.clientY) < ($element[0].offsetHeight - $element[0].clientHeight));
 
         if (clickedVScrollBar || clickedHScrollBar) {
             return false;
@@ -421,7 +421,6 @@
         },
 
         closeModalClick: function(event) {
-
             var modalBoxInstance,
                 $modalbox = event.data.modalbox,
                 targetIndex = $modalbox.data('modalBoxIndex'),
@@ -981,7 +980,8 @@
 
         exitModal: function(instant, onClosed) {
 
-            var animDone;
+            var animDone,
+                nextModal;
 
             returnFunction(this.options.beforeclose)(this.$modalbox, this.$offspring, this);
             this.$modalbox.trigger('beforeClose.modalBox', [this.$modalbox, this.$offspring, this]);
@@ -991,7 +991,7 @@
             }
 
             if (modalBoxElements.length) {
-                var nextModal = modalBoxElements[modalBoxElements.length - 2];
+                nextModal = modalBoxElements[modalBoxElements.length - 2];
                 if (nextModal) {
                     if (nextModal.options.closeonbackdrop === true) {
                         nextModal.$wrapper.addClass('modal-close-on-backdrop');
@@ -1002,7 +1002,7 @@
             }
 
             if (modalBoxElements.length) {
-                var nextModal = modalBoxElements[modalBoxElements.length - 2];
+                nextModal = modalBoxElements[modalBoxElements.length - 2];
                 if (nextModal) {
                     if (nextModal.options.closeonbackdrop === true) {
                         nextModal.$wrapper.addClass('modal-close-on-backdrop');
@@ -1012,7 +1012,7 @@
                 }
             }
 
-            if (instant !== true && this.options.animclose !== false) {
+            if (instant !== true && this.options.animclose) {
 
                 animDone = function animDone() {
 
