@@ -2,7 +2,7 @@
 
 module.exports = {
     options: {
-        banner: '/*! <%= package.description %> v<%= package.version %> <%= grunt.template.today("dd.mm.yyyy") %> */\n',
+        banner: '/*! <%= package.name %> v<%= package.version %> <%= grunt.template.today("dd.mm.yyyy") %> */\n',
         sourceMap: true
     },
     dist: {
