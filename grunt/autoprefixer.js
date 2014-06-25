@@ -7,7 +7,7 @@ module.exports = {
             map: true
         },
         files: {
-            'jquery.stackbox.min.css': ['jquery.stackbox.min.css']
+            'dist/jquery.stackbox.min.css': ['dist/jquery.stackbox.min.css']
         }
     }
 }

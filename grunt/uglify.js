@@ -7,8 +7,8 @@ module.exports = {
     },
     dist: {
         files: {
-            'jquery.stackbox.min.js': [
-                'jquery.stackbox.js'
+            'dist/jquery.stackbox.min.js': [
+                'src/jquery.stackbox.js'
             ]
         }
     }

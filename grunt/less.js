@@ -13,7 +13,7 @@ module.exports = {
             sourceMapFilename: 'jquery.stackbox.min.map'
         },
         files: {
-            'jquery.stackbox.min.css': 'jquery.stackbox.less'
+            'dist/jquery.stackbox.min.css': 'src/jquery.stackbox.less'
         }
     }
 }
