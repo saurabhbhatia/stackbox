@@ -3,8 +3,8 @@ Stackbox
 
 A jQuery plugin for creating stacked modal boxes.
 
+Examples: See **demo** folder.
 
+Copyright © 2014 Stefan Bruvik.
 
-Copyright © Stefan Bruvik
-
-Note: This plugin was forked from code written by Ivar Borthen i 2012.
+(This plugin was forked from code written by Ivar Borthen i 2012.)
