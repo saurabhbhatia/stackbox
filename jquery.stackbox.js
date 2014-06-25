@@ -1207,7 +1207,7 @@
         afterclose: $.noop,
         onerror: $.noop,
 
-        content: false, // Html or jQuery selector
+        content: false, // html, or id selector for jQuery
     };
 
     $(document)
