@@ -317,7 +317,7 @@
         createCloseButton: function() {
 
             if (this.options.closebutton === true) {
-                this.$closeButton = $('<div class="modal-close" data-close-modal="true"><button type="button" class="close"><i class="' + this.options.closebuttonclass + '"></i></button></div>');
+                this.$closeButton = $('<div class="modal-close" data-close-modal="true"><button type="button" class="close">' + this.options.closebuttonicon + '</button></div>');
                 this.$modalbox.prepend(this.$closeButton);
             }
         },
@@ -1188,8 +1188,8 @@
         animclose: 'fadeOut',
         mainwrapperclass: 'modals',
         noscrollclass: 'noscroll',
-        closebuttonclass: 'fa fa-times',
-        spinnerclass: 'fa fa-cog fa-spin fa-5x',
+        closebuttonicon: '&#x2716;',
+        spinnerclass: 'loading-spinner',
 
         autoadjust: true,
         autoscroll: true, // Scroll to modal when opened if outside of (or partically outside of) the window.

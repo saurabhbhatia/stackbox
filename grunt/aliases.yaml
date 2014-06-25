@@ -1,5 +1,4 @@
 default:
-  - 'copy'
   - 'less'
   - 'autoprefixer'
   - 'jshint'

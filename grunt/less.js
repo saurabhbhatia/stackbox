@@ -10,12 +10,12 @@ module.exports = {
     },
     dist: {
         options: {
-            sourceMapFilename: 'dist/jquery.stackbox.min.css.map',
-            sourceMapBasepath: 'demo/',
-            sourceMapRootpath: '../'
+            sourceMapFilename: 'plugin/dist/jquery.stackbox.min.css.map',
+            sourceMapBasepath: '',
+            sourceMapRootpath: '../../'
         },
         files: {
-            'dist/jquery.stackbox.min.css': 'src/jquery.stackbox.less'
+            'plugin/dist/jquery.stackbox.min.css': 'plugin/src/jquery.stackbox.less'
         }
     }
 }
