@@ -316,8 +316,17 @@
 
         createCloseButton: function() {
 
+            var closeButtonIcon;
+
             if (this.options.closeButton === true) {
-                this.$closeButton = $('<div class="stackbox-close" data-close-stackbox="true"><button type="button" class="close">' + this.options.closeButtonIcon + '</button></div>');
+
+                if ($.fn.stackbox.globalSettings && $.fn.stackbox.globalSettings.closeButtonIcon) {
+                    closeButtonIcon = $.fn.stackbox.globalSettings.closeButtonIcon;
+                } else {
+                    closeButtonIcon = this.options.closeButtonIcon;
+                }
+
+                this.$closeButton = $('<div class="stackbox-close" data-close-stackbox="true"><button type="button" class="close">' + closeButtonIcon + '</button></div>');
                 this.$stackbox.prepend(this.$closeButton);
             }
         },
@@ -451,7 +460,8 @@
             var ajaxDone,
                 ajaxFail,
                 ajaxAlways,
-                animDone;
+                animDone,
+                spinnerClass;
 
             if (typeof options === 'string') {
                 options = {
@@ -466,7 +476,13 @@
                 this.$arrow = this.$stackbox.find('.stackbox-arrow').detach();
             }
 
-            this.$stackbox.html('<div style="padding: 40px; text-align: center;"><div class="' + this.options.spinnerClass + '"></div></div>');
+            if ($.fn.stackbox.globalSettings && $.fn.stackbox.globalSettings.spinnerClass) {
+                spinnerClass = $.fn.stackbox.globalSettings.spinnerClass;
+            } else {
+                spinnerClass = this.options.spinnerClass;
+            }
+
+            this.$stackbox.html('<div style="padding: 40px; text-align: center;"><div class="' + spinnerClass + '"></div></div>');
 
             if (this.$arrow) {
                 this.$arrow.appendTo(this.$stackbox);
