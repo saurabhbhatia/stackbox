@@ -1,0 +1,28 @@
+{
+    "globals": {
+        "$": false,
+        "jQuery": true,
+    },
+    "strict": true,
+    "eqeqeq": true,
+    "undef": true,
+    "eqnull": true,
+    "curly": true,
+    "browser": true,
+    "node": false,
+    "unused": true,
+    "devel": true,
+    "forin": true,
+    "immed": true,
+    "laxbreak": false,
+    "laxcomma": false,
+    "newcap": true,
+    "noarg": true,
+    "noempty": false,
+    "nonew": false,
+    "freeze": true,
+    "camelcase": false,
+    "bitwise": false,
+    "esnext": false,
+    "evil": false
+}
