@@ -249,7 +249,7 @@
                 }
             }
 
-            this.createElements();
+            this.createDOMElements();
 
             href = $(parentElement).attr('href');
             if (this.options.content === false && href) {
@@ -322,7 +322,7 @@
             }
         },
 
-        createElements: function() {
+        createDOMElements: function() {
 
             var $parent,
                 stackboxIndex,
@@ -483,7 +483,7 @@
             }
 
             if (this.$arrow) {
-                this.arrowPosition();
+                this.setArrowPos();
             }
 
             this.ajaxRequest = $.ajax(options);
@@ -734,7 +734,7 @@
             this.adjustToWindow(args);
 
             if (this.$arrow) {
-                this.arrowPosition();
+                this.setArrowPos();
             }
         },
 
@@ -796,7 +796,7 @@
             return top;
         },
 
-        arrowPosition: function() {
+        setArrowPos: function() {
 
             var left, top;
 
@@ -1120,7 +1120,7 @@
 
             for (var i = 0; i < domElements.length; i++) {
                 if (this === domElements[i]) {
-                    console.warn('stackbox already initialized on element!');
+                    console.warn('Stackbox already initialized on element!');
                     console.dir(this);
                     return false;
                 }
@@ -1154,7 +1154,7 @@
             for (option in optionsKeys) {
                 if (optionsKeys.hasOwnProperty(option)) {
                     if (!(optionsKeys[option] in $.fn.stackbox.settings)) {
-                        console.info('stackbox option "' + optionsKeys[option] + '" is invalid.');
+                        console.info('Stackbox option "' + optionsKeys[option] + '" is invalid.');
                     }
                 }
             }
