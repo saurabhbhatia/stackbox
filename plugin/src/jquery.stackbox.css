@@ -59,7 +59,7 @@ html.noscroll {
   border-bottom-left-radius: 6px;
   border-top-left-radius: 6px;
   overflow: visible;
-  z-index: auto;
+  z-index: 2;
   right: auto;
   bottom: auto;
   outline: 0;
