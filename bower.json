@@ -1,29 +1,29 @@
 {
-  "name": "stackbox",
-  "version": "0.1.0",
-  "homepage": "https://github.com/stebru/stackbox",
-  "authors": [
-    "Stefan Bruvik"
-  ],
-  "description": "Stackable modal boxes",
-  "main": "jquery.stackbox.js",
-  "keywords": [
-    "modal",
-    "modalbox"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "animate.css": "~3.1.1",
-    "jquery": "1"
-  },
-  "devDependencies": {
-    "qunit": "~1.14.0"
-  }
+    "name": "stackbox",
+    "version": "0.1.0",
+    "homepage": "https://github.com/stebru/stackbox",
+    "authors": [
+        "Stefan Bruvik"
+    ],
+    "description": "Stackable modal boxes",
+    "main": "jquery.stackbox.js",
+    "keywords": [
+        "modal",
+        "modalbox"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "animate.css": "~3.1.1",
+        "jquery": "~2"
+    },
+    "devDependencies": {
+        "qunit": "~1.14.0"
+    }
 }
