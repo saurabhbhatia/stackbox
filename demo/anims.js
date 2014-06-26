@@ -11,7 +11,7 @@ $(document).ready(function() {
         var animOpen = $('#anim-open').val(),
             animOpenSpeed = $('#anim-open-speed').val();
 
-        $('#stackbox-opener').data('stackboxAnimopen', animOpen + ' ' + animOpenSpeed);
+        $('#stackbox-opener').data('stackboxAnimOpen', animOpen + ' ' + animOpenSpeed);
     }
     setAnimOpenData();
 
@@ -19,7 +19,7 @@ $(document).ready(function() {
         var animClose = $('#anim-close').val(),
             animCloseSpeed = $('#anim-close-speed').val();
 
-        $('#stackbox-opener').data('stackboxAnimclose', animClose + ' ' + animCloseSpeed);
+        $('#stackbox-opener').data('stackboxAnimClose', animClose + ' ' + animCloseSpeed);
     }
     setAnimCloseData();
 

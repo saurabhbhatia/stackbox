@@ -176,13 +176,13 @@
             }
 
             if (closeThese.length) {
-                if (closeThese.length === 1 && closeThese[0].options.closeonbackdrop === true) {
+                if (closeThese.length === 1 && closeThese[0].options.closeOnBackdrop === true) {
                     // Last one in group, close it.
                     closeThese[0].exitStackbox(true);
                 } else {
                     // Close all but the lowest stackbox in group.
                     for (i = 0; i < closeThese.length - 1; i++) {
-                        if (closeThese[i].options.closeonbackdrop === true) {
+                        if (closeThese[i].options.closeOnBackdrop === true) {
                             closeThese[i].exitStackbox(true);
                         }
                     }
@@ -231,8 +231,8 @@
 
             this.loadable = false;
 
-            if (this.options.nextto !== null) {
-                this.$offspring = $(this.options.nextto);
+            if (this.options.nextTo !== null) {
+                this.$offspring = $(this.options.nextTo);
             } else {
                 if (parentElement !== undefined) {
                     this.$offspring = $(parentElement);
@@ -268,8 +268,8 @@
 
             this.created = true;
 
-            returnFunction(this.options.beforeopen)(this.$offspring, this);
-            $(document).trigger('beforeopen.stackbox', [this.$offspring, this]);
+            returnFunction(this.options.beforeOpen)(this.$offspring, this);
+            $(document).trigger('beforeOpen.stackbox', [this.$offspring, this]);
 
             if (this.loadable === true) {
                 this.loadAjax(this.options.content);
@@ -278,11 +278,11 @@
                 this.afterOpen(true);
 
                 animDone = function animDone() {
-                    this.$stackbox.removeClass('animated ' + this.options.animopen);
+                    this.$stackbox.removeClass('animated ' + this.options.animOpen);
                 }.bind(this);
 
                 if (css3animsupported) {
-                    this.$stackbox.addClass('animated ' + this.options.animopen).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
+                    this.$stackbox.addClass('animated ' + this.options.animOpen).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
                 } else {
                     animDone();
                 }
@@ -297,8 +297,8 @@
 
             this.autoScroll();
 
-            returnFunction(this.options.afteropen)(this.$stackbox, this.$offspring, this);
-            $(document).trigger('afteropen.stackbox', [this.$stackbox, this.$offspring, this]);
+            returnFunction(this.options.afterOpen)(this.$stackbox, this.$offspring, this);
+            $(document).trigger('afterOpen.stackbox', [this.$stackbox, this.$offspring, this]);
         },
 
         createArrow: function() {
@@ -316,8 +316,8 @@
 
         createCloseButton: function() {
 
-            if (this.options.closebutton === true) {
-                this.$closeButton = $('<div class="stackbox-close" data-close-stackbox="true"><button type="button" class="close">' + this.options.closebuttonicon + '</button></div>');
+            if (this.options.closeButton === true) {
+                this.$closeButton = $('<div class="stackbox-close" data-close-stackbox="true"><button type="button" class="close">' + this.options.closeButtonIcon + '</button></div>');
                 this.$stackbox.prepend(this.$closeButton);
             }
         },
@@ -332,7 +332,7 @@
                 },
                 wrapperClass = defaultWrapperClass,
                 stackboxClass = defaultStackboxClass,
-                mainWrapperClass = this.options.mainwrapperclass,
+                mainWrapperClass = this.options.mainWrapperClass,
                 mainWrapperExtraClass = '';
 
             if ($.fn.stackbox.globalSettings && $.fn.stackbox.globalSettings.stackboxclass) {
@@ -343,8 +343,8 @@
                 $parent = this.$offspring.parents('.' + stackboxClass);
             }
 
-            if ($.fn.stackbox.globalSettings && $.fn.stackbox.globalSettings.mainwrapperclass) {
-                mainWrapperClass = $.fn.stackbox.globalSettings.mainwrapperclass;
+            if ($.fn.stackbox.globalSettings && $.fn.stackbox.globalSettings.mainWrapperClass) {
+                mainWrapperClass = $.fn.stackbox.globalSettings.mainWrapperClass;
                 if ($.fn.stackbox.globalSettings.mainwrapperextraclass) {
                     mainWrapperExtraClass += ' ' + $.fn.stackbox.globalSettings.mainwrapperextraclass;
                 }
@@ -378,14 +378,14 @@
                 this.$wrapper = $parent.parent();
             }
 
-            this.hadNoScroll = $('html').hasClass(this.options.noscrollclass);
+            this.hadNoScroll = $('html').hasClass(this.options.noscrollClass);
 
             if (this.options.backdrop === true) {
                 this.$wrapper.addClass('stackbox-backdrop');
             }
 
             if (this.options.position === 'absolute') {
-                $('html').addClass(this.options.noscrollclass);
+                $('html').addClass(this.options.noscrollClass);
             }
 
             if (this.options.width === 'auto') {
@@ -398,7 +398,7 @@
                 .css(stackboxCss)
                 .appendTo(this.$wrapper);
 
-            if (this.options.closeonbackdrop === true) {
+            if (this.options.closeOnBackdrop === true) {
                 this.$wrapper.addClass('stackbox-close-on-backdrop');
             } else {
                 this.$wrapper.removeClass('stackbox-close-on-backdrop');
@@ -466,7 +466,7 @@
                 this.$arrow = this.$stackbox.find('.stackbox-arrow').detach();
             }
 
-            this.$stackbox.html('<div style="padding: 40px; text-align: center;"><div class="' + this.options.spinnerclass + '"></div></div>');
+            this.$stackbox.html('<div style="padding: 40px; text-align: center;"><div class="' + this.options.spinnerClass + '"></div></div>');
 
             if (this.$arrow) {
                 this.$arrow.appendTo(this.$stackbox);
@@ -474,11 +474,11 @@
 
             this.updatePosition();
 
-            if (this.options.params !== null) {
-                if (typeof this.options.params === 'string') {
-                    options.data = $.parseJSON(this.options.params.replace(/'/g, '"'));
-                } else if (typeof this.options.params === 'object') {
-                    options.data = this.options.params;
+            if (this.options.queryParams !== null) {
+                if (typeof this.options.queryParams === 'string') {
+                    options.data = $.parseJSON(this.options.queryParams.replace(/'/g, '"'));
+                } else if (typeof this.options.queryParams === 'object') {
+                    options.data = this.options.queryParams;
                 }
             }
 
@@ -500,12 +500,12 @@
 
             ajaxFail = function ajaxFail(jqXHR, textStatus) {
                 var htmlMessage,
-                    messengerMessage = this.options.msg_ajaxfailed;
+                    messengerMessage = this.options.requestFailed;
 
                 if (jqXHR && jqXHR.responseText && jqXHR.responseText.length > 0) {
                     htmlMessage = jqXHR.responseText;
                 } else {
-                    htmlMessage = this.options.msg_ajaxfailed;
+                    htmlMessage = this.options.requestFailed;
                 }
 
                 if (options && options.url) {
@@ -514,7 +514,7 @@
 
                 if (textStatus !== 'abort') {
                     console.warn(messengerMessage);
-                    returnFunction(this.options.onerror)(this, jqXHR, textStatus);
+                    returnFunction(this.options.onError)(this, jqXHR, textStatus);
                     this.$stackbox.trigger('onError.stackbox', [this, jqXHR, textStatus]);
                 }
 
@@ -532,13 +532,13 @@
 
                 animDone = function animDone() {
 
-                    this.$stackbox.removeClass('animated ' + this.options.animopen);
+                    this.$stackbox.removeClass('animated ' + this.options.animOpen);
                     this.afterOpen();
 
                 }.bind(this);
 
                 if (css3animsupported) {
-                    this.$stackbox.show(0).addClass('animated ' + this.options.animopen).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
+                    this.$stackbox.show(0).addClass('animated ' + this.options.animOpen).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
                 } else {
                     this.$stackbox.fadeIn(200, function fadeInDone() {
                         animDone();
@@ -571,8 +571,8 @@
                         $newContent.clone(true, true).appendTo(this.$stackbox);
                     } else {
                         // Don't clone, just extract it from the DOM.
-                        if (this.options.returncontent) {
-                            this.returncontent = $($newContent[0]).parent();
+                        if (this.options.returnContent) {
+                            this.returnContent = $($newContent[0]).parent();
                         }
 
                         if ($newContent.length === 0) {
@@ -687,7 +687,7 @@
             if (this.options.width !== 'auto') {
                 stackboxWidth = this.getStackboxWidth();
 
-                if (this.options.respectbrowserwidth) {
+                if (this.options.respectBrowserWidth) {
                     if (windowWidth < stackboxWidth + minMarginRight) {
                         stackboxWidth = windowWidth - minMarginRight;
                     }
@@ -702,8 +702,8 @@
             stackboxHeight = this.$stackbox.height();
 
             args = {
-                marginX: this.options.margin_x,
-                marginY: this.options.margin_y,
+                marginX: this.options.marginX,
+                marginY: this.options.marginY,
                 stackboxWidth: stackboxWidth,
                 stackboxHeight: stackboxHeight
             };
@@ -848,7 +848,7 @@
 
             var left, css;
 
-            if (this.options.autoadjust === true) {
+            if (this.options.autoAdjust === true) {
 
                 if (this.options.position === 'left' || this.options.position === 'right') {
 
@@ -869,7 +869,7 @@
                         this.$stackbox.css(css);
                     } else if (params.top + params.height + $(window).scrollTop() > $(document).height()) {
 
-                        if (!$('html').hasClass(this.options.noscrollclass)) { // Wrapper can scroll, i.e. there's always room below.
+                        if (!$('html').hasClass(this.options.noscrollClass)) { // Wrapper can scroll, i.e. there's always room below.
                             css = this.positionTop(params); // Position above if not room below.
                             this.$stackbox.css(css);
                         }
@@ -894,12 +894,12 @@
                 stackboxWidth = windowWidth * parseInt(this.options.width, 10) * 0.01; // Convert % to pixels.
             }
 
-            return Math.max(this.options.minwidth, Math.min(windowWidth - 20, Math.min(Number(this.options.maxwidth), stackboxWidth)));
+            return Math.max(this.options.minWidth, Math.min(windowWidth - 20, Math.min(Number(this.options.maxWidth), stackboxWidth)));
         },
 
         autoScroll: function() {
 
-            if (!this.options.autoscroll || this.options.position === 'absolute') {
+            if (!this.options.autoScroll || this.options.position === 'absolute') {
                 return false; // Abort scroll
             }
 
@@ -911,8 +911,8 @@
                 padding = 20,
                 newScrollTop,
                 animOptions = {
-                    duration: this.options.scrollspeed,
-                    easing: this.options.scrolleasing
+                    duration: this.options.scrollSpeed,
+                    easing: this.options.scrollEasing
                 },
                 firstStackbox = stackboxes[0],
                 shouldScrollBody = false,
@@ -981,7 +981,7 @@
             var animDone,
                 nextStackbox;
 
-            returnFunction(this.options.beforeclose)(this.$stackbox, this.$offspring, this);
+            returnFunction(this.options.beforeClose)(this.$stackbox, this.$offspring, this);
             this.$stackbox.trigger('beforeClose.stackbox', [this.$stackbox, this.$offspring, this]);
 
             if (this.ajaxRequest) {
@@ -991,7 +991,7 @@
             if (stackboxes.length) {
                 nextStackbox = stackboxes[stackboxes.length - 2];
                 if (nextStackbox) {
-                    if (nextStackbox.options.closeonbackdrop === true) {
+                    if (nextStackbox.options.closeOnBackdrop === true) {
                         nextStackbox.$wrapper.addClass('stackbox-close-on-backdrop');
                     } else {
                         nextStackbox.$wrapper.removeClass('stackbox-close-on-backdrop');
@@ -1002,7 +1002,7 @@
             if (stackboxes.length) {
                 nextStackbox = stackboxes[stackboxes.length - 2];
                 if (nextStackbox) {
-                    if (nextStackbox.options.closeonbackdrop === true) {
+                    if (nextStackbox.options.closeOnBackdrop === true) {
                         nextStackbox.$wrapper.addClass('stackbox-close-on-backdrop');
                     } else {
                         nextStackbox.$wrapper.removeClass('stackbox-close-on-backdrop');
@@ -1010,7 +1010,7 @@
                 }
             }
 
-            if (instant !== true && this.options.animclose) {
+            if (instant !== true && this.options.animClose) {
 
                 animDone = function animDone() {
 
@@ -1027,7 +1027,7 @@
                 }.bind(this);
 
                 if (css3animsupported) {
-                    this.$stackbox.addClass('animated ' + this.options.animclose).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
+                    this.$stackbox.addClass('animated ' + this.options.animClose).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
                 } else {
                     this.$stackbox.fadeOut(200, function fadeOutDone() {
                         animDone();
@@ -1058,20 +1058,20 @@
             }
 
             if (this.hadNoScroll === false) {
-                $('html').removeClass(this.options.noscrollclass);
+                $('html').removeClass(this.options.noscrollClass);
             } else {
-                $('html').addClass(this.options.noscrollclass);
+                $('html').addClass(this.options.noscrollClass);
             }
 
             stackboxes.pop();
             stackboxCounter = stackboxes.length;
             domElements.pop();
 
-            returnFunction(this.options.afterclose)(this.$stackbox, this.$offspring, this);
+            returnFunction(this.options.afterClose)(this.$stackbox, this.$offspring, this);
             this.$stackbox.trigger('afterClose.stackbox', [this.$stackbox, this.$offspring, this]);
 
-            if (this.options.returncontent === true && this.returncontent !== undefined) {
-                this.$stackbox.children().appendTo(this.returncontent);
+            if (this.options.returnContent === true && this.returnContent !== undefined) {
+                this.$stackbox.children().appendTo(this.returnContent);
             }
 
             this.$stackbox.remove();
@@ -1139,7 +1139,8 @@
             for (attr in dataAttributes) {
                 if (dataAttributes.hasOwnProperty(attr)) {
                     if (attr.indexOf('stackbox') === 0) {
-                        propName = attr.substr(8).toLowerCase();
+                        propName = attr.substr(8);
+                        propName = propName.charAt(0).toLowerCase() + propName.substr(1);
                         if (propName) {
                             data[propName] = dataAttributes[attr];
                         }
@@ -1169,43 +1170,43 @@
 
         // Size
         width: 'auto', // Could also be % values.
-        maxwidth: 9999, // This will be maximum allowed width. (Only useful if width is in %). 9999 == we dont pixel limit, other than window.width - 2 x margins of 10px via later calculations.
-        minwidth: 100, // Pixel min width of stackbox. If set, stackboxes will not be allowed to be narrower than this.
-        respectbrowserwidth: true, // Never make a stackbox wider than browser window.
+        maxWidth: 9999, // This will be maximum allowed width. (Only useful if width is in %). 9999 == we dont pixel limit, other than window.width - 2 x margins of 10px via later calculations.
+        minWidth: 100, // Pixel min width of stackbox. If set, stackboxes will not be allowed to be narrower than this.
+        respectBrowserWidth: true, // Never make a stackbox wider than browser window.
 
         // Scrolling
-        scrollspeed: 600, // In milliseconds
-        scrolleasing: 'easeOutCirc',
+        scrollSpeed: 600, // In milliseconds
+        scrollEasing: 'easeOutCirc',
 
         backdrop: 'auto', // Show backdrop?
-        closeonbackdrop: true,
+        closeOnBackdrop: true,
         position: 'bottom',
-        margin_x: 15, // Pixels x-tra away from its relative element. Works more like margin.
-        margin_y: 5, // Pixels y-tra away from its relative element. Works more like margin.
-        nextto: null, // Place this stackbox next to another element?
+        marginX: 15, // Pixels x-tra away from its relative element. Works more like margin.
+        marginY: 5, // Pixels y-tra away from its relative element. Works more like margin.
+        nextTo: null, // Place this stackbox next to another element?
 
-        animopen: 'fadeIn',
-        animclose: 'fadeOut',
-        mainwrapperclass: 'stackboxes',
-        noscrollclass: 'noscroll',
-        closebuttonicon: '&#x2716;',
-        spinnerclass: 'loading-spinner',
+        animOpen: 'fadeIn',
+        animClose: 'fadeOut',
+        mainWrapperClass: 'stackboxes',
+        noscrollClass: 'noscroll',
+        closeButtonIcon: '&#x2716;',
+        spinnerClass: 'loading-spinner',
 
-        autoadjust: true,
-        autoscroll: true, // Scroll to stackbox when opened if outside of (or partically outside of) the window.
-        params: null, // Object containing data used to get/retrieve ajax / php content.
+        autoAdjust: true,
+        autoScroll: true, // Scroll to stackbox when opened if outside of (or partically outside of) the window.
+        queryParams: null, // Object to send as ajax data.
         requestType: 'GET',
         clone: false,
-        returncontent: true, // If true, adds extracted dom content back into the dom tree when closing the stackbox.
-        closebutton: true,
-        msg_ajaxfailed: 'Request failed. Please try again.',
+        returnContent: true, // If true, adds extracted dom content back into the dom tree when closing the stackbox.
+        closeButton: true,
+        requestFailed: 'Request failed. Please try again.',
 
         // Callbacks
-        beforeopen: $.noop,
-        afteropen: $.noop,
-        beforeclose: $.noop,
-        afterclose: $.noop,
-        onerror: $.noop,
+        beforeOpen: $.noop,
+        afterOpen: $.noop,
+        beforeClose: $.noop,
+        afterClose: $.noop,
+        onError: $.noop,
 
         content: false, // html, or id selector for jQuery
     };
