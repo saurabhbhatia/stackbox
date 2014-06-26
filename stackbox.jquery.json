@@ -9,13 +9,13 @@
         "dialog",
         "lightbox"
     ],
-    "version": "0.2.0",
+    "version": "0.2.1",
     "author": {
         "name": "Stefan Bruvik"
     },
     "licenses": [{
         "type": "MIT",
-        "url": "https://github.com/stebru/stackbox/blob/v0.2.0/LICENSE"
+        "url": "https://github.com/stebru/stackbox/blob/v0.2.1/LICENSE"
     }],
     "bugs": "https://github.com/stebru/stackbox/issues",
     "homepage": "https://github.com/stebru/stackbox",
