@@ -7,4 +7,4 @@ module.exports = {
         force: true
     },
     dist: ['jquery.stackbox.js']
-}
+};

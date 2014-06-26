@@ -1,6 +1,6 @@
 {
     "name": "stackbox",
-    "version": "0.1.4",
+    "version": "0.2.0",
     "homepage": "https://github.com/stebru/stackbox",
     "authors": [
         "Stefan Bruvik"
@@ -24,6 +24,7 @@
         "jquery": "~2"
     },
     "devDependencies": {
-        "qunit": "~1.14.0"
+        "qunit": "~1.14.0",
+        "font-awesome": "~4.1.0"
     }
 }

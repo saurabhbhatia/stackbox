@@ -10,4 +10,4 @@ module.exports = {
             'plugin/dist/jquery.stackbox.min.css': ['plugin/dist/jquery.stackbox.min.css']
         }
     }
-}
+};

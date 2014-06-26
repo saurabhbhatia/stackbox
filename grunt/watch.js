@@ -11,5 +11,5 @@ module.exports = {
     css: {
         files: ['plugin/src/*.less'],
         tasks: ['less', 'autoprefixer']
-    },
-}
+    }
+};

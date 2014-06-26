@@ -25,5 +25,4 @@ module.exports = {
             'plugin/src/jquery.stackbox.css': 'plugin/src/jquery.stackbox.less'
         }
     }
-
-}
+};
