@@ -1,7 +1,7 @@
 Stackbox 
 ========
 
-v0.2.1
+v0.2.2
 
 A jQuery plugin for creating stackable modal boxes.
 
