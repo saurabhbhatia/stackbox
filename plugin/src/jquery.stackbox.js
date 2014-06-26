@@ -61,7 +61,7 @@
     function closeTopmostStackbox() {
         var stackboxObj = stackboxes[stackboxes.length - 1];
         if (stackboxObj) {
-            stackboxObj.exitStackbox();
+            stackboxObj.exitStackbox(true);
         }
     }
 
