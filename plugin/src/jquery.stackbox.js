@@ -1108,14 +1108,6 @@
             return true;
         }
 
-        for (option in options) {
-            if (options.hasOwnProperty(option)) {
-                lowercasedOptions[option.toLowerCase()] = options[option];
-            }
-        }
-
-        options = lowercasedOptions;
-
         return this.each(function createStackboxObj() {
 
             for (var i = 0; i < domElements.length; i++) {
