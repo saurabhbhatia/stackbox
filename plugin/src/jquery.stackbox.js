@@ -1,17 +1,17 @@
 /* global jQuery */
-(function modalBox($, window) {
+(function stackbox($, window) {
 
     'use strict';
 
-    var modalBoxCounter = 0,
-        modalBoxGroup = 0,
-        modalBoxElements = [],
+    var stackboxCounter = 0,
+        stackboxGroup = 0,
+        stackboxes = [],
         domElements = [],
         minMarginLeft = 20,
         minMarginRight = 30,
         minMarginTop = 10,
-        defaultModalClass = 'modal',
-        defaultWrapperClass = 'modal-wrapper',
+        defaultStackboxClass = 'stackbox',
+        defaultWrapperClass = 'stackbox-wrapper',
         css3animsupported = false;
 
     function returnFunction(fn) {
@@ -20,9 +20,9 @@
 
         if (typeof fn === 'string') {
 
-            if ($.fn.modalBox.globalSettings && typeof $.fn.modalBox.globalSettings.NAMESPACE === 'string') {
+            if ($.fn.stackbox.globalSettings && typeof $.fn.stackbox.globalSettings.NAMESPACE === 'string') {
 
-                ns = $.fn.modalBox.globalSettings.NAMESPACE;
+                ns = $.fn.stackbox.globalSettings.NAMESPACE;
 
                 if (window[ns] && $.isFunction(window[ns][fn])) {
                     return window[ns][fn];
@@ -43,55 +43,55 @@
         };
     }
 
-    function modalOpenTrigger(event) {
+    function openTrigger(event) {
 
         /*jshint validthis:true */
 
         event.preventDefault();
-        $(this).addClass('active').modalBox();
+        $(this).addClass('active').stackbox();
     }
 
     function escapeKeyClick(event) {
         if (event.keyCode === 27) {
-            closeTopmostModal();
+            closeTopmostStackbox();
             event.preventDefault();
         }
     }
 
-    function closeTopmostModal() {
-        var modalBoxInstance = modalBoxElements[modalBoxElements.length - 1];
-        if (modalBoxInstance) {
-            modalBoxInstance.exitModal();
+    function closeTopmostStackbox() {
+        var stackboxObj = stackboxes[stackboxes.length - 1];
+        if (stackboxObj) {
+            stackboxObj.exitStackbox();
         }
     }
 
-    function closeModalContainingElement($element) {
+    function closeStackboxContainingElement($element) {
 
-        var $targetModalBox = $element.parents('.modal'),
+        var $targetStackbox = $element.parents('.stackbox'),
             targetIndex,
-            modalBoxInstance,
+            stackboxObj,
             i;
 
-        if ($targetModalBox.length) {
+        if ($targetStackbox.length) {
 
-            targetIndex = $targetModalBox.data('modalBoxIndex');
+            targetIndex = $targetStackbox.data('stackboxIndex');
 
-            for (i = modalBoxElements.length - 1; i >= 0; i--) {
+            for (i = stackboxes.length - 1; i >= 0; i--) {
                 if (i >= targetIndex) {
-                    modalBoxInstance = modalBoxElements[i];
-                    if (modalBoxInstance) {
-                        modalBoxInstance.exitModal(true);
+                    stackboxObj = stackboxes[i];
+                    if (stackboxObj) {
+                        stackboxObj.exitStackbox(true);
                     }
                 }
             }
         }
     }
 
-    function modalMousedown(event) {
+    function stackboxMousedown(event) {
 
         var element = event.target,
             $element = $(element),
-            modalBoxInstance,
+            stackboxObj,
             targetIndex,
             targetGroup,
             currentGroup,
@@ -100,35 +100,35 @@
             clickedHScrollBar,
             $window = $(window),
             closeThese = [],
-            modalClass = defaultModalClass,
+            stackboxClass = defaultStackboxClass,
             wrapperClass = defaultWrapperClass;
 
         if (event.which !== 1) {
             return false;
         }
 
-        if ($.fn.modalBox.globalSettings && $.fn.modalBox.globalSettings.modalclass) {
-            modalClass = $.fn.modalBox.globalSettings.modalclass;
+        if ($.fn.stackbox.globalSettings && $.fn.stackbox.globalSettings.stackboxclass) {
+            stackboxClass = $.fn.stackbox.globalSettings.stackboxclass;
         }
-        if ($.fn.modalBox.globalSettings && $.fn.modalBox.globalSettings.wrapperclass) {
-            wrapperClass = $.fn.modalBox.globalSettings.wrapperclass;
+        if ($.fn.stackbox.globalSettings && $.fn.stackbox.globalSettings.wrapperclass) {
+            wrapperClass = $.fn.stackbox.globalSettings.wrapperclass;
         }
 
         while (element && element !== document.body && element !== document) {
             $element = $(element);
 
-            if ($element.data('closeModal') === true) { // Click on close-modal=true is handled in modal#closeModalClick
+            if ($element.data('closeStackbox') === true) { // Click on close-stackbox=true is handled in stackbox#closeClick
                 return false;
             }
 
-            if ($element.hasClass(modalClass)) { // Clicked inside of modal, close all modals stacked on top of this one.
-                targetIndex = $element.data('modalBoxIndex');
+            if ($element.hasClass(stackboxClass)) { // Clicked inside of stackbox, close all stackboxes stacked on top of this one.
+                targetIndex = $element.data('stackboxIndex');
 
-                for (i = modalBoxElements.length - 1; i >= 0; i--) {
+                for (i = stackboxes.length - 1; i >= 0; i--) {
                     if (i > targetIndex) {
-                        modalBoxInstance = modalBoxElements[i];
-                        if (modalBoxInstance) {
-                            modalBoxInstance.exitModal(true);
+                        stackboxObj = stackboxes[i];
+                        if (stackboxObj) {
+                            stackboxObj.exitStackbox(true);
                         }
                     }
                 }
@@ -150,27 +150,27 @@
             return false;
         }
 
-        if (modalBoxElements.length === 1) {
+        if (stackboxes.length === 1) {
             // Clicked somewhere in the document (through wrapper)
-            modalBoxInstance = modalBoxElements[0];
-            if (modalBoxInstance) {
-                if (modalBoxInstance.$wrapper[0].style.pointerEvents === 'none') {
-                    // Only one modal (with offspring) open. Close it.
-                    modalBoxInstance.exitModal(true);
+            stackboxObj = stackboxes[0];
+            if (stackboxObj) {
+                if (stackboxObj.$wrapper[0].style.pointerEvents === 'none') {
+                    // Only one stackbox (with offspring) open. Close it.
+                    stackboxObj.exitStackbox(true);
                     return true; // Let event bubble up
                 }
             }
         }
 
-        // Clicked outside of modal, i.e. on wrapper.
-        targetGroup = $element.data('modalBoxGroup');
+        // Clicked outside of stackbox, i.e. on wrapper.
+        targetGroup = $element.data('stackboxGroup');
         if (targetGroup) {
-            for (i = modalBoxElements.length - 1; i >= 0; i--) {
-                modalBoxInstance = modalBoxElements[i];
-                if (modalBoxInstance) {
-                    currentGroup = modalBoxInstance.$modalbox.data('modalBoxGroup');
+            for (i = stackboxes.length - 1; i >= 0; i--) {
+                stackboxObj = stackboxes[i];
+                if (stackboxObj) {
+                    currentGroup = stackboxObj.$stackbox.data('stackboxGroup');
                     if (currentGroup === targetGroup) {
-                        closeThese.push(modalBoxInstance);
+                        closeThese.push(stackboxObj);
                     }
                 }
             }
@@ -178,22 +178,22 @@
             if (closeThese.length) {
                 if (closeThese.length === 1 && closeThese[0].options.closeonbackdrop === true) {
                     // Last one in group, close it.
-                    closeThese[0].exitModal(true);
+                    closeThese[0].exitStackbox(true);
                 } else {
-                    // Close all but the lowest modal in group.
+                    // Close all but the lowest stackbox in group.
                     for (i = 0; i < closeThese.length - 1; i++) {
                         if (closeThese[i].options.closeonbackdrop === true) {
-                            closeThese[i].exitModal(true);
+                            closeThese[i].exitStackbox(true);
                         }
                     }
                 }
             }
         } else {
-            // All modals are 'drop downs' (i.e. none of them have backdrop), contained in a single wrapper. Close them all.
-            for (i = modalBoxElements.length - 1; i >= 0; i--) {
-                modalBoxInstance = modalBoxElements[i];
-                if (modalBoxInstance) {
-                    modalBoxInstance.exitModal(true);
+            // All stackboxes are 'drop downs' (i.e. none of them have backdrop), contained in a single wrapper. Close them all.
+            for (i = stackboxes.length - 1; i >= 0; i--) {
+                stackboxObj = stackboxes[i];
+                if (stackboxObj) {
+                    stackboxObj.exitStackbox(true);
                 }
             }
         }
@@ -201,13 +201,13 @@
 
     function windowResize() {
 
-        var modalBoxInstance,
+        var stackboxObj,
             i;
 
-        for (i = 0; i < modalBoxCounter; i++) {
-            modalBoxInstance = modalBoxElements[i];
-            if (modalBoxInstance) {
-                modalBoxInstance.updatePosition(modalBoxInstance);
+        for (i = 0; i < stackboxCounter; i++) {
+            stackboxObj = stackboxes[i];
+            if (stackboxObj) {
+                stackboxObj.updatePosition(stackboxObj);
             }
         }
     }
@@ -216,14 +216,14 @@
         windowResize();
     }
 
-    var modalBoxPrototype = {
+    var stackboxPrototype = {
 
         init: function(options, parentElement) {
 
             var href,
                 animDone;
 
-            this.options = $.extend({}, $.fn.modalBox.settings, options, $.fn.modalBox.globalSettings);
+            this.options = $.extend({}, $.fn.stackbox.settings, options, $.fn.stackbox.globalSettings);
 
             if (this.options.position === 'fixed') {
                 this.options.position = 'absolute';
@@ -269,7 +269,7 @@
             this.created = true;
 
             returnFunction(this.options.beforeopen)(this.$offspring, this);
-            $(document).trigger('beforeopen.modalBox', [this.$offspring, this]);
+            $(document).trigger('beforeopen.stackbox', [this.$offspring, this]);
 
             if (this.loadable === true) {
                 this.loadAjax(this.options.content);
@@ -278,11 +278,11 @@
                 this.afterOpen(true);
 
                 animDone = function animDone() {
-                    this.$modalbox.removeClass('animated ' + this.options.animopen);
+                    this.$stackbox.removeClass('animated ' + this.options.animopen);
                 }.bind(this);
 
                 if (css3animsupported) {
-                    this.$modalbox.addClass('animated ' + this.options.animopen).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
+                    this.$stackbox.addClass('animated ' + this.options.animopen).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
                 } else {
                     animDone();
                 }
@@ -297,8 +297,8 @@
 
             this.autoScroll();
 
-            returnFunction(this.options.afteropen)(this.$modalbox, this.$offspring, this);
-            $(document).trigger('afteropen.modalBox', [this.$modalbox, this.$offspring, this]);
+            returnFunction(this.options.afteropen)(this.$stackbox, this.$offspring, this);
+            $(document).trigger('afteropen.stackbox', [this.$stackbox, this.$offspring, this]);
         },
 
         createArrow: function() {
@@ -308,8 +308,8 @@
                 return;
             }
 
-            $('<div class="modal-arrow"></div>').appendTo(this.$modalbox);
-            this.$arrow = this.$modalbox.find('.modal-arrow');
+            $('<div class="stackbox-arrow"></div>').appendTo(this.$stackbox);
+            this.$arrow = this.$stackbox.find('.stackbox-arrow');
             this.arrowWidth = this.$arrow.outerWidth();
             this.arrowHeight = this.$arrow.outerHeight();
         },
@@ -317,62 +317,62 @@
         createCloseButton: function() {
 
             if (this.options.closebutton === true) {
-                this.$closeButton = $('<div class="modal-close" data-close-modal="true"><button type="button" class="close">' + this.options.closebuttonicon + '</button></div>');
-                this.$modalbox.prepend(this.$closeButton);
+                this.$closeButton = $('<div class="stackbox-close" data-close-stackbox="true"><button type="button" class="close">' + this.options.closebuttonicon + '</button></div>');
+                this.$stackbox.prepend(this.$closeButton);
             }
         },
 
         createElements: function() {
 
             var $parent,
-                modalBoxIndex,
-                newModalGroup,
-                modalBoxCss = {
+                stackboxIndex,
+                newStackboxGroup,
+                stackboxCss = {
                     display: 'block'
                 },
                 wrapperClass = defaultWrapperClass,
-                modalClass = defaultModalClass,
+                stackboxClass = defaultStackboxClass,
                 mainWrapperClass = this.options.mainwrapperclass,
                 mainWrapperExtraClass = '';
 
-            if ($.fn.modalBox.globalSettings && $.fn.modalBox.globalSettings.modalclass) {
-                modalClass = $.fn.modalBox.globalSettings.modalclass;
+            if ($.fn.stackbox.globalSettings && $.fn.stackbox.globalSettings.stackboxclass) {
+                stackboxClass = $.fn.stackbox.globalSettings.stackboxclass;
             }
 
             if (this.$offspring) {
-                $parent = this.$offspring.parents('.' + modalClass);
+                $parent = this.$offspring.parents('.' + stackboxClass);
             }
 
-            if ($.fn.modalBox.globalSettings && $.fn.modalBox.globalSettings.mainwrapperclass) {
-                mainWrapperClass = $.fn.modalBox.globalSettings.mainwrapperclass;
-                if ($.fn.modalBox.globalSettings.mainwrapperextraclass) {
-                    mainWrapperExtraClass += ' ' + $.fn.modalBox.globalSettings.mainwrapperextraclass;
+            if ($.fn.stackbox.globalSettings && $.fn.stackbox.globalSettings.mainwrapperclass) {
+                mainWrapperClass = $.fn.stackbox.globalSettings.mainwrapperclass;
+                if ($.fn.stackbox.globalSettings.mainwrapperextraclass) {
+                    mainWrapperExtraClass += ' ' + $.fn.stackbox.globalSettings.mainwrapperextraclass;
                 }
             }
 
-            if (modalBoxCounter === 1) {
+            if (stackboxCounter === 1) {
                 this.$wrapperWrapper = $('<div></div>').addClass(mainWrapperClass + mainWrapperExtraClass).appendTo($(document.body));
             } else if ($parent) {
                 this.$wrapperWrapper = $parent.parents('.' + mainWrapperClass);
             }
 
-            if (modalBoxCounter === 1 || this.options.backdrop === true) {
+            if (stackboxCounter === 1 || this.options.backdrop === true) {
 
                 this.$wrapper = $('<div></div>')
                     .addClass(wrapperClass)
-                    .css('z-index', 9900 + modalBoxCounter)
+                    .css('z-index', 9900 + stackboxCounter)
                     .appendTo(this.$wrapperWrapper);
 
-                if (modalBoxCounter === 1 && this.options.backdrop !== true) {
+                if (stackboxCounter === 1 && this.options.backdrop !== true) {
                     this.$wrapper.css({
                         'overflow': 'hidden',
                         'pointer-events': 'none'
                     });
                 }
 
-                modalBoxGroup++;
-                this.$wrapper.data('modalBoxGroup', modalBoxGroup);
-                $(document).off('mousedown.modalBox').on('mousedown.modalBox', modalMousedown);
+                stackboxGroup++;
+                this.$wrapper.data('stackboxGroup', stackboxGroup);
+                $(document).off('mousedown.stackbox').on('mousedown.stackbox', stackboxMousedown);
 
             } else if ($parent) {
                 this.$wrapper = $parent.parent();
@@ -381,7 +381,7 @@
             this.hadNoScroll = $('html').hasClass(this.options.noscrollclass);
 
             if (this.options.backdrop === true) {
-                this.$wrapper.addClass('modal-backdrop');
+                this.$wrapper.addClass('stackbox-backdrop');
             }
 
             if (this.options.position === 'absolute') {
@@ -389,57 +389,57 @@
             }
 
             if (this.options.width === 'auto') {
-                modalBoxCss.width = 'auto';
+                stackboxCss.width = 'auto';
             }
 
-            // Create the modalbox element.
-            this.$modalbox = $('<div></div>')
-                .addClass(modalClass)
-                .css(modalBoxCss)
+            // Create the stackbox element.
+            this.$stackbox = $('<div></div>')
+                .addClass(stackboxClass)
+                .css(stackboxCss)
                 .appendTo(this.$wrapper);
 
             if (this.options.closeonbackdrop === true) {
-                this.$wrapper.addClass('modal-close-on-backdrop');
+                this.$wrapper.addClass('stackbox-close-on-backdrop');
             } else {
-                this.$wrapper.removeClass('modal-close-on-backdrop');
+                this.$wrapper.removeClass('stackbox-close-on-backdrop');
             }
 
-            modalBoxIndex = (modalBoxCounter - 1);
-            this.modalBoxIndex = modalBoxIndex;
-            this.$modalbox.data('modalBoxIndex', modalBoxIndex);
+            stackboxIndex = (stackboxCounter - 1);
+            this.stackboxIndex = stackboxIndex;
+            this.$stackbox.data('stackboxIndex', stackboxIndex);
 
-            newModalGroup = this.$wrapper.data('modalBoxGroup');
-            this.modalBoxGroup = newModalGroup;
-            this.$modalbox.data('modalBoxGroup', newModalGroup);
+            newStackboxGroup = this.$wrapper.data('stackboxGroup');
+            this.stackboxGroup = newStackboxGroup;
+            this.$stackbox.data('stackboxGroup', newStackboxGroup);
         },
 
         addEventListeners: function() {
 
-            this.$modalbox.on('click', '[data-close-modal="true"]', {
-                modalbox: this.$modalbox
-            }, this.closeModalClick);
+            this.$stackbox.on('click', '[data-close-stackbox="true"]', {
+                stackbox: this.$stackbox
+            }, this.closeClick);
         },
 
-        closeModalClick: function(event) {
-            var modalBoxInstance,
-                $modalbox = event.data.modalbox,
-                targetIndex = $modalbox.data('modalBoxIndex'),
+        closeClick: function(event) {
+            var stackboxObj,
+                $stackbox = event.data.stackbox,
+                targetIndex = $stackbox.data('stackboxIndex'),
                 i,
                 $this = $(this);
 
             event.preventDefault();
-            event.stopPropagation(); // Stop event from bubbling up to document click listener (handled by modalOpenTrigger).
+            event.stopPropagation(); // Stop event from bubbling up to document click listener (handled by openTrigger).
 
-            for (i = modalBoxCounter - 1; i >= 0; i--) {
+            for (i = stackboxCounter - 1; i >= 0; i--) {
                 if (i >= targetIndex) {
-                    modalBoxInstance = modalBoxElements[i];
-                    if (modalBoxInstance) {
-                        if ($this.data('modal') === true) {
-                            modalBoxInstance.exitModal(false, function onClosed() {
-                                $this.modalBox();
+                    stackboxObj = stackboxes[i];
+                    if (stackboxObj) {
+                        if ($this.data('stackbox') === true) {
+                            stackboxObj.exitStackbox(false, function onClosed() {
+                                $this.stackbox();
                             });
                         } else {
-                            modalBoxInstance.exitModal();
+                            stackboxObj.exitStackbox();
                         }
                     }
                 }
@@ -461,15 +461,15 @@
                 };
             }
 
-            // Display the loading spinner as modal content.
+            // Display the loading spinner as stackbox content.
             if (this.$arrow) {
-                this.$arrow = this.$modalbox.find('.modal-arrow').detach();
+                this.$arrow = this.$stackbox.find('.stackbox-arrow').detach();
             }
 
-            this.$modalbox.html('<div style="padding: 40px; text-align: center;"><div class="' + this.options.spinnerclass + '"></div></div>');
+            this.$stackbox.html('<div style="padding: 40px; text-align: center;"><div class="' + this.options.spinnerclass + '"></div></div>');
 
             if (this.$arrow) {
-                this.$arrow.appendTo(this.$modalbox);
+                this.$arrow.appendTo(this.$stackbox);
             }
 
             this.updatePosition();
@@ -490,11 +490,11 @@
 
             ajaxDone = function ajaxDone(data) {
 
-                this.$modalbox.hide();
-                this.$modalbox.html(data);
+                this.$stackbox.hide();
+                this.$stackbox.html(data);
 
                 if (this.$arrow) {
-                    this.$arrow.appendTo(this.$modalbox);
+                    this.$arrow.appendTo(this.$stackbox);
                 }
             }.bind(this);
 
@@ -515,10 +515,10 @@
                 if (textStatus !== 'abort') {
                     console.warn(messengerMessage);
                     returnFunction(this.options.onerror)(this, jqXHR, textStatus);
-                    this.$modalbox.trigger('onError.modalBox', [this, jqXHR, textStatus]);
+                    this.$stackbox.trigger('onError.stackbox', [this, jqXHR, textStatus]);
                 }
 
-                this.$modalbox.html('<div style="padding: 10px;">' + htmlMessage + '</div>');
+                this.$stackbox.html('<div style="padding: 10px;">' + htmlMessage + '</div>');
             }.bind(this);
 
             ajaxAlways = function ajaxAlways() {
@@ -532,15 +532,15 @@
 
                 animDone = function animDone() {
 
-                    this.$modalbox.removeClass('animated ' + this.options.animopen);
+                    this.$stackbox.removeClass('animated ' + this.options.animopen);
                     this.afterOpen();
 
                 }.bind(this);
 
                 if (css3animsupported) {
-                    this.$modalbox.show(0).addClass('animated ' + this.options.animopen).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
+                    this.$stackbox.show(0).addClass('animated ' + this.options.animopen).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
                 } else {
-                    this.$modalbox.fadeIn(200, function fadeInDone() {
+                    this.$stackbox.fadeIn(200, function fadeInDone() {
                         animDone();
                     });
                 }
@@ -568,7 +568,7 @@
 
                     if (this.options.clone) {
                         // Clone an element.
-                        $newContent.clone(true, true).appendTo(this.$modalbox);
+                        $newContent.clone(true, true).appendTo(this.$stackbox);
                     } else {
                         // Don't clone, just extract it from the DOM.
                         if (this.options.returncontent) {
@@ -576,14 +576,14 @@
                         }
 
                         if ($newContent.length === 0) {
-                            this.$modalbox.html('<div style="padding: 10px;">No content in element: "' + content + '"</div>');
+                            this.$stackbox.html('<div style="padding: 10px;">No content in element: "' + content + '"</div>');
                         } else {
-                            $newContent.appendTo(this.$modalbox);
+                            $newContent.appendTo(this.$stackbox);
                         }
                     }
 
                 } else {
-                    this.$modalbox.html('<div style="padding: 10px;">Could not find element: "' + content + '"</div>');
+                    this.$stackbox.html('<div style="padding: 10px;">Could not find element: "' + content + '"</div>');
                 }
 
             } else if (isHttp) { // Content is an url.
@@ -592,7 +592,7 @@
 
             } else { // Content is just plain html.
 
-                this.$modalbox.html(content);
+                this.$stackbox.html(content);
             }
         },
 
@@ -614,7 +614,7 @@
 
             var pos = {};
 
-            pos.left = (this.$offspring.offset().left + this.$offspring.outerWidth() / 2) - params.modalWidth / 2;
+            pos.left = (this.$offspring.offset().left + this.$offspring.outerWidth() / 2) - params.stackboxWidth / 2;
             pos.top = params.marginY + (this.$offspring.offset().top + this.$offspring.outerHeight());
 
             this.arrowDirection = 'up';
@@ -626,8 +626,8 @@
 
             var pos = {};
 
-            pos.left = (this.$offspring.offset().left + this.$offspring.outerWidth() / 2) - params.modalWidth / 2;
-            pos.top = -params.marginY + (this.$offspring.offset().top - params.modalHeight);
+            pos.left = (this.$offspring.offset().left + this.$offspring.outerWidth() / 2) - params.stackboxWidth / 2;
+            pos.top = -params.marginY + (this.$offspring.offset().top - params.stackboxHeight);
 
             this.arrowDirection = 'down';
 
@@ -638,8 +638,8 @@
 
             var pos = {};
 
-            pos.left = this.$offspring.offset().left - params.modalWidth - params.marginX;
-            pos.top = this.$offspring.offset().top + (this.$offspring.outerHeight() - params.modalHeight) / 2;
+            pos.left = this.$offspring.offset().left - params.stackboxWidth - params.marginX;
+            pos.top = this.$offspring.offset().top + (this.$offspring.outerHeight() - params.stackboxHeight) / 2;
 
             this.arrowDirection = 'right';
 
@@ -651,7 +651,7 @@
             var pos = {};
 
             pos.left = this.$offspring.offset().left + this.$offspring.outerWidth() + params.marginX;
-            pos.top = this.$offspring.offset().top + (this.$offspring.outerHeight() - params.modalHeight) / 2;
+            pos.top = this.$offspring.offset().top + (this.$offspring.outerHeight() - params.stackboxHeight) / 2;
 
             this.arrowDirection = 'left';
 
@@ -663,8 +663,8 @@
             var pos = {},
                 $window = $(window);
 
-            pos.left = ($window.width() / 2 - params.modalWidth / 2) + $window.scrollLeft();
-            pos.top = ($window.outerHeight() / 2 - params.modalHeight / 2) + $window.scrollTop();
+            pos.left = ($window.width() / 2 - params.stackboxWidth / 2) + $window.scrollLeft();
+            pos.top = ($window.outerHeight() / 2 - params.stackboxHeight / 2) + $window.scrollTop();
 
             this.arrowDirection = false;
 
@@ -673,8 +673,8 @@
 
         updatePosition: function() {
 
-            var modalWidth,
-                modalHeight,
+            var stackboxWidth,
+                stackboxHeight,
                 args,
                 method,
                 css,
@@ -685,27 +685,27 @@
             }
 
             if (this.options.width !== 'auto') {
-                modalWidth = this.getModalWidth();
+                stackboxWidth = this.getStackboxWidth();
 
                 if (this.options.respectbrowserwidth) {
-                    if (windowWidth < modalWidth + minMarginRight) {
-                        modalWidth = windowWidth - minMarginRight;
+                    if (windowWidth < stackboxWidth + minMarginRight) {
+                        stackboxWidth = windowWidth - minMarginRight;
                     }
                 }
 
-                this.$modalbox.width(modalWidth);
+                this.$stackbox.width(stackboxWidth);
 
             } else {
-                modalWidth = this.$modalbox.width();
+                stackboxWidth = this.$stackbox.width();
             }
 
-            modalHeight = this.$modalbox.height();
+            stackboxHeight = this.$stackbox.height();
 
             args = {
                 marginX: this.options.margin_x,
                 marginY: this.options.margin_y,
-                modalWidth: modalWidth,
-                modalHeight: modalHeight
+                stackboxWidth: stackboxWidth,
+                stackboxHeight: stackboxHeight
             };
 
             method = 'position' + this.options.position.charAt(0).toUpperCase() + this.options.position.substring(1);
@@ -716,19 +716,19 @@
             }
 
             if (!this[method]) {
-                console.warn('ModalBox: Unknown position method "' + method + '"');
+                console.warn('stackbox: Unknown position method "' + method + '"');
                 method = 'positionAbsolute';
             }
             css = this[method](args);
-            this.$modalbox.css(css);
+            this.$stackbox.css(css);
 
             $.extend(args, {
-                left: parseInt(this.$modalbox.css('left'), 10),
-                top: parseInt(this.$modalbox.css('top'), 10),
+                left: parseInt(this.$stackbox.css('left'), 10),
+                top: parseInt(this.$stackbox.css('top'), 10),
                 windowWidth: windowWidth,
                 windowHeight: $(window).height(),
-                width: this.$modalbox.outerWidth(),
-                height: this.$modalbox.outerHeight()
+                width: this.$stackbox.outerWidth(),
+                height: this.$stackbox.outerHeight()
             });
 
             this.adjustToWindow(args);
@@ -740,8 +740,8 @@
 
         calcArrowLeft: function() {
 
-            var modalLeft = parseInt(this.$modalbox.css('left'), 10),
-                modalWidth = this.$modalbox.outerWidth(),
+            var stackboxLeft = parseInt(this.$stackbox.css('left'), 10),
+                stackboxWidth = this.$stackbox.outerWidth(),
                 offspringLeft = this.$offspring.offset().left,
                 offspringWidth = this.$offspring.outerWidth(),
                 offspringCenter = offspringLeft + (offspringWidth / 2),
@@ -749,9 +749,9 @@
                 halfOfArrow = arrowWidth / 2,
                 left,
                 minLeft = 6,
-                maxLeft = modalWidth - arrowWidth - 6;
+                maxLeft = stackboxWidth - arrowWidth - 6;
 
-            left = offspringCenter - modalLeft - halfOfArrow; // Subtracting modalLeft because arrow's 0,0 is the modal's left,top.
+            left = offspringCenter - stackboxLeft - halfOfArrow; // Subtracting stackboxLeft because arrow's 0,0 is the stackbox's left,top.
 
             left -= $(window).scrollLeft();
             left += this.$wrapper.scrollLeft();
@@ -771,8 +771,8 @@
 
         calcArrowTop: function() {
 
-            var modalTop = parseInt(this.$modalbox.css('top'), 10),
-                modalHeight = this.$modalbox.outerHeight(),
+            var stackboxTop = parseInt(this.$stackbox.css('top'), 10),
+                stackboxHeight = this.$stackbox.outerHeight(),
                 offspringTop = this.$offspring.offset().top,
                 offspringHeight = this.$offspring.outerHeight(),
                 offspringCenter = offspringTop + (offspringHeight / 2),
@@ -780,9 +780,9 @@
                 halfOfArrow = arrowHeight / 2,
                 top,
                 minTop = 6,
-                maxTop = modalHeight - arrowHeight - 6;
+                maxTop = stackboxHeight - arrowHeight - 6;
 
-            top = offspringCenter - modalTop - halfOfArrow; // Subtracting modalTop because arrow's 0,0 is the modal's left,top.
+            top = offspringCenter - stackboxTop - halfOfArrow; // Subtracting stackboxTop because arrow's 0,0 is the stackbox's left,top.
 
             top -= $(window).scrollTop();
             top += this.$wrapper.scrollTop();
@@ -815,7 +815,7 @@
             } else if (this.arrowDirection === 'down') {
 
                 left = this.calcArrowLeft() + (this.arrowWidth / 2);
-                top = this.$modalbox.height();
+                top = this.$stackbox.height();
 
                 this.$arrow.css({
                     'left': Math.round(left),
@@ -824,7 +824,7 @@
 
             } else if (this.arrowDirection === 'right') {
 
-                left = this.$modalbox.width();
+                left = this.$stackbox.width();
                 top = this.calcArrowTop() + (this.arrowHeight / 2);
 
                 this.$arrow.css({
@@ -852,49 +852,49 @@
 
                 if (this.options.position === 'left' || this.options.position === 'right') {
 
-                    // Make sure the modal is not placed outside of window. If it is, place it below its offspring.
+                    // Make sure the stackbox is not placed outside of window. If it is, place it below its offspring.
                     if (params.top < minMarginTop || params.left < minMarginLeft || params.left + params.width > params.windowWidth - 10) {
 
                         css = this.positionBottom(params); // Position below if not room above.
-                        this.$modalbox.css(css);
+                        this.$stackbox.css(css);
                     }
                 } else if (this.options.position === 'absolute') {
                     if (params.top < minMarginTop) {
-                        this.$modalbox.css('top', minMarginTop);
+                        this.$stackbox.css('top', minMarginTop);
                     }
                 } else {
 
                     if (params.top < minMarginTop) {
                         css = this.positionBottom(params); // Position below if not room above.
-                        this.$modalbox.css(css);
+                        this.$stackbox.css(css);
                     } else if (params.top + params.height + $(window).scrollTop() > $(document).height()) {
 
                         if (!$('html').hasClass(this.options.noscrollclass)) { // Wrapper can scroll, i.e. there's always room below.
                             css = this.positionTop(params); // Position above if not room below.
-                            this.$modalbox.css(css);
+                            this.$stackbox.css(css);
                         }
                     }
                 }
             }
 
             if (params.left < minMarginLeft) {
-                this.$modalbox.css('left', minMarginLeft);
-            } else if (params.left + params.modalWidth > params.windowWidth - minMarginRight) {
-                left = Math.max(minMarginLeft, params.windowWidth - minMarginRight - params.modalWidth);
-                this.$modalbox.css('left', left);
+                this.$stackbox.css('left', minMarginLeft);
+            } else if (params.left + params.stackboxWidth > params.windowWidth - minMarginRight) {
+                left = Math.max(minMarginLeft, params.windowWidth - minMarginRight - params.stackboxWidth);
+                this.$stackbox.css('left', left);
             }
         },
 
-        getModalWidth: function() {
+        getStackboxWidth: function() {
 
             var windowWidth = $(window).width(),
-                modalWidth = this.options.width;
+                stackboxWidth = this.options.width;
 
-            if (typeof modalWidth === 'string') {
-                modalWidth = windowWidth * parseInt(this.options.width, 10) * 0.01; // Convert % to pixels.
+            if (typeof stackboxWidth === 'string') {
+                stackboxWidth = windowWidth * parseInt(this.options.width, 10) * 0.01; // Convert % to pixels.
             }
 
-            return Math.max(this.options.minwidth, Math.min(windowWidth - 20, Math.min(Number(this.options.maxwidth), modalWidth)));
+            return Math.max(this.options.minwidth, Math.min(windowWidth - 20, Math.min(Number(this.options.maxwidth), stackboxWidth)));
         },
 
         autoScroll: function() {
@@ -903,46 +903,46 @@
                 return false; // Abort scroll
             }
 
-            var modalBoxOffsetTop = this.$modalbox.offset().top,
+            var stackboxOffsetTop = this.$stackbox.offset().top,
                 wrapperScrollTop = this.$wrapper.scrollTop(),
                 windowHeight = $(window).height(),
                 windowScrollTop = $(window).scrollTop(),
-                modalHeight = this.$modalbox.height(),
+                stackboxHeight = this.$stackbox.height(),
                 padding = 20,
                 newScrollTop,
                 animOptions = {
                     duration: this.options.scrollspeed,
                     easing: this.options.scrolleasing
                 },
-                firstModal = modalBoxElements[0],
+                firstStackbox = stackboxes[0],
                 shouldScrollBody = false,
                 i;
 
-            if (firstModal && firstModal.options.position !== 'absolute') {
+            if (firstStackbox && firstStackbox.options.position !== 'absolute') {
                 shouldScrollBody = true;
             }
 
-            for (i = 1; i < modalBoxElements.length; i++) {
-                if (modalBoxElements[i].options.position === 'absolute') {
+            for (i = 1; i < stackboxes.length; i++) {
+                if (stackboxes[i].options.position === 'absolute') {
                     shouldScrollBody = false;
                 }
             }
 
             if (shouldScrollBody) {
 
-                if (modalBoxOffsetTop < windowScrollTop) { // Top of modal is hidden above the window
+                if (stackboxOffsetTop < windowScrollTop) { // Top of stackbox is hidden above the window
                     $('body,html').animate({
-                        scrollTop: modalBoxOffsetTop - padding
+                        scrollTop: stackboxOffsetTop - padding
                     }, animOptions);
 
-                } else if ((modalBoxOffsetTop - windowScrollTop) + modalHeight > windowHeight) { // Bottom of modal is hidden below the window
+                } else if ((stackboxOffsetTop - windowScrollTop) + stackboxHeight > windowHeight) { // Bottom of stackbox is hidden below the window
 
-                    // If the modal box is taller than the window, scroll to its top (with 20px padding above),
-                    // otherwise (i.e. the whole modal fits inside the window) scroll to its bottom (with 20px padding below).
-                    if (windowHeight < modalHeight) {
-                        newScrollTop = modalBoxOffsetTop - padding;
+                    // If the stackbox is taller than the window, scroll to its top (with 20px padding above),
+                    // otherwise (i.e. the whole stackbox fits inside the window) scroll to its bottom (with 20px padding below).
+                    if (windowHeight < stackboxHeight) {
+                        newScrollTop = stackboxOffsetTop - padding;
                     } else {
-                        newScrollTop = modalBoxOffsetTop + modalHeight - windowHeight + padding;
+                        newScrollTop = stackboxOffsetTop + stackboxHeight - windowHeight + padding;
                     }
 
                     $('body,html').animate({
@@ -952,21 +952,21 @@
 
             } else {
 
-                if ((modalBoxOffsetTop + wrapperScrollTop) < windowScrollTop) { // Top of modal is hidden above the window
+                if ((stackboxOffsetTop + wrapperScrollTop) < windowScrollTop) { // Top of stackbox is hidden above the window
 
                     this.$wrapper.animate({
-                        scrollTop: modalBoxOffsetTop - padding
+                        scrollTop: stackboxOffsetTop - padding
                     }, animOptions);
 
-                } else if ((modalBoxOffsetTop - windowScrollTop) + modalHeight > windowHeight) { // Bottom of modal is hidden below the window
+                } else if ((stackboxOffsetTop - windowScrollTop) + stackboxHeight > windowHeight) { // Bottom of stackbox is hidden below the window
 
-                    // If the modal box is taller than the window, scroll to its top (with 20px padding above),
-                    // otherwise (i.e. the whole modal fits inside the window) scroll to its bottom (with 20px padding below).
+                    // If the stackbox is taller than the window, scroll to its top (with 20px padding above),
+                    // otherwise (i.e. the whole stackbox fits inside the window) scroll to its bottom (with 20px padding below).
 
-                    if (windowHeight < modalHeight) {
-                        newScrollTop = modalBoxOffsetTop - windowScrollTop + wrapperScrollTop - padding;
+                    if (windowHeight < stackboxHeight) {
+                        newScrollTop = stackboxOffsetTop - windowScrollTop + wrapperScrollTop - padding;
                     } else {
-                        newScrollTop = modalBoxOffsetTop - windowScrollTop + wrapperScrollTop + modalHeight - windowHeight + padding;
+                        newScrollTop = stackboxOffsetTop - windowScrollTop + wrapperScrollTop + stackboxHeight - windowHeight + padding;
                     }
 
                     this.$wrapper.animate({
@@ -976,36 +976,36 @@
             }
         },
 
-        exitModal: function(instant, onClosed) {
+        exitStackbox: function(instant, onClosed) {
 
             var animDone,
-                nextModal;
+                nextStackbox;
 
-            returnFunction(this.options.beforeclose)(this.$modalbox, this.$offspring, this);
-            this.$modalbox.trigger('beforeClose.modalBox', [this.$modalbox, this.$offspring, this]);
+            returnFunction(this.options.beforeclose)(this.$stackbox, this.$offspring, this);
+            this.$stackbox.trigger('beforeClose.stackbox', [this.$stackbox, this.$offspring, this]);
 
             if (this.ajaxRequest) {
                 this.ajaxRequest.abort();
             }
 
-            if (modalBoxElements.length) {
-                nextModal = modalBoxElements[modalBoxElements.length - 2];
-                if (nextModal) {
-                    if (nextModal.options.closeonbackdrop === true) {
-                        nextModal.$wrapper.addClass('modal-close-on-backdrop');
+            if (stackboxes.length) {
+                nextStackbox = stackboxes[stackboxes.length - 2];
+                if (nextStackbox) {
+                    if (nextStackbox.options.closeonbackdrop === true) {
+                        nextStackbox.$wrapper.addClass('stackbox-close-on-backdrop');
                     } else {
-                        nextModal.$wrapper.removeClass('modal-close-on-backdrop');
+                        nextStackbox.$wrapper.removeClass('stackbox-close-on-backdrop');
                     }
                 }
             }
 
-            if (modalBoxElements.length) {
-                nextModal = modalBoxElements[modalBoxElements.length - 2];
-                if (nextModal) {
-                    if (nextModal.options.closeonbackdrop === true) {
-                        nextModal.$wrapper.addClass('modal-close-on-backdrop');
+            if (stackboxes.length) {
+                nextStackbox = stackboxes[stackboxes.length - 2];
+                if (nextStackbox) {
+                    if (nextStackbox.options.closeonbackdrop === true) {
+                        nextStackbox.$wrapper.addClass('stackbox-close-on-backdrop');
                     } else {
-                        nextModal.$wrapper.removeClass('modal-close-on-backdrop');
+                        nextStackbox.$wrapper.removeClass('stackbox-close-on-backdrop');
                     }
                 }
             }
@@ -1027,9 +1027,9 @@
                 }.bind(this);
 
                 if (css3animsupported) {
-                    this.$modalbox.addClass('animated ' + this.options.animclose).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
+                    this.$stackbox.addClass('animated ' + this.options.animclose).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
                 } else {
-                    this.$modalbox.fadeOut(200, function fadeOutDone() {
+                    this.$stackbox.fadeOut(200, function fadeOutDone() {
                         animDone();
                     });
                 }
@@ -1063,45 +1063,45 @@
                 $('html').addClass(this.options.noscrollclass);
             }
 
-            modalBoxElements.pop();
-            modalBoxCounter = modalBoxElements.length;
+            stackboxes.pop();
+            stackboxCounter = stackboxes.length;
             domElements.pop();
 
-            returnFunction(this.options.afterclose)(this.$modalbox, this.$offspring, this);
-            this.$modalbox.trigger('afterClose.modalBox', [this.$modalbox, this.$offspring, this]);
+            returnFunction(this.options.afterclose)(this.$stackbox, this.$offspring, this);
+            this.$stackbox.trigger('afterClose.stackbox', [this.$stackbox, this.$offspring, this]);
 
             if (this.options.returncontent === true && this.returncontent !== undefined) {
-                this.$modalbox.children().appendTo(this.returncontent);
+                this.$stackbox.children().appendTo(this.returncontent);
             }
 
-            this.$modalbox.remove();
+            this.$stackbox.remove();
 
-            if (modalBoxCounter === 0) {
+            if (stackboxCounter === 0) {
                 this.$wrapperWrapper.remove();
             }
 
             if (this.$wrapper.children().length === 0) {
                 this.$wrapper.remove();
-                modalBoxGroup--;
+                stackboxGroup--;
             }
         },
 
         toString: function() {
             if (this.created === true) {
-                return 'ModalBox [#' + this.modalBoxIndex + ', g' + this.modalBoxGroup + ']';
+                return 'stackbox [#' + this.stackboxIndex + ', g' + this.stackboxGroup + ']';
             } else {
-                return 'ModalBox [uninitialized]';
+                return 'stackbox [uninitialized]';
             }
         }
     };
 
-    $.fn.modalBox = function(options) {
+    $.fn.stackbox = function(options) {
 
         var lowercasedOptions = {},
             option;
 
         if (options === 'close') {
-            closeModalContainingElement(this);
+            closeStackboxContainingElement(this);
             return true;
         } else if (options === 'updatePosition') {
             windowResize();
@@ -1116,11 +1116,11 @@
 
         options = lowercasedOptions;
 
-        return this.each(function createModalInstance() {
+        return this.each(function createStackboxObj() {
 
             for (var i = 0; i < domElements.length; i++) {
                 if (this === domElements[i]) {
-                    console.warn('ModalBox already initialized on element!');
+                    console.warn('stackbox already initialized on element!');
                     console.dir(this);
                     return false;
                 }
@@ -1128,7 +1128,7 @@
 
             domElements.push(this);
 
-            // Get data-attr, convert to lowercase & remove 'modal' prefix
+            // Get data-attr, convert to lowercase & remove 'stackbox' prefix
             var dataAttributes = $(this).data(),
                 data = {},
                 attr,
@@ -1138,8 +1138,8 @@
 
             for (attr in dataAttributes) {
                 if (dataAttributes.hasOwnProperty(attr)) {
-                    if (attr.indexOf('modal') === 0) {
-                        propName = attr.substr(5).toLowerCase();
+                    if (attr.indexOf('stackbox') === 0) {
+                        propName = attr.substr(8).toLowerCase();
                         if (propName) {
                             data[propName] = dataAttributes[attr];
                         }
@@ -1153,25 +1153,25 @@
 
             for (option in optionsKeys) {
                 if (optionsKeys.hasOwnProperty(option)) {
-                    if (!(optionsKeys[option] in $.fn.modalBox.settings)) {
-                        console.info('ModalBox option "' + optionsKeys[option] + '" is invalid.');
+                    if (!(optionsKeys[option] in $.fn.stackbox.settings)) {
+                        console.info('stackbox option "' + optionsKeys[option] + '" is invalid.');
                     }
                 }
             }
 
-            modalBoxElements.push(Object.create(modalBoxPrototype));
-            modalBoxCounter = modalBoxElements.length;
-            modalBoxElements[modalBoxCounter - 1].init(options, this);
+            stackboxes.push(Object.create(stackboxPrototype));
+            stackboxCounter = stackboxes.length;
+            stackboxes[stackboxCounter - 1].init(options, this);
         });
     };
 
-    $.fn.modalBox.settings = {
+    $.fn.stackbox.settings = {
 
         // Size
         width: 'auto', // Could also be % values.
         maxwidth: 9999, // This will be maximum allowed width. (Only useful if width is in %). 9999 == we dont pixel limit, other than window.width - 2 x margins of 10px via later calculations.
-        minwidth: 100, // Pixel min width of modalbox. If set, modals will not be allowed to be narrower than this.
-        respectbrowserwidth: true, // Never make a modalbox wider than browser window.
+        minwidth: 100, // Pixel min width of stackbox. If set, stackboxes will not be allowed to be narrower than this.
+        respectbrowserwidth: true, // Never make a stackbox wider than browser window.
 
         // Scrolling
         scrollspeed: 600, // In milliseconds
@@ -1182,21 +1182,21 @@
         position: 'bottom',
         margin_x: 15, // Pixels x-tra away from its relative element. Works more like margin.
         margin_y: 5, // Pixels y-tra away from its relative element. Works more like margin.
-        nextto: null, // Place this modalbox next to another element?
+        nextto: null, // Place this stackbox next to another element?
 
         animopen: 'fadeIn',
         animclose: 'fadeOut',
-        mainwrapperclass: 'modals',
+        mainwrapperclass: 'stackboxes',
         noscrollclass: 'noscroll',
         closebuttonicon: '&#x2716;',
         spinnerclass: 'loading-spinner',
 
         autoadjust: true,
-        autoscroll: true, // Scroll to modal when opened if outside of (or partically outside of) the window.
+        autoscroll: true, // Scroll to stackbox when opened if outside of (or partically outside of) the window.
         params: null, // Object containing data used to get/retrieve ajax / php content.
         requestType: 'GET',
         clone: false,
-        returncontent: true, // If true, adds extracted dom content back into the dom tree when closing the modal.
+        returncontent: true, // If true, adds extracted dom content back into the dom tree when closing the stackbox.
         closebutton: true,
         msg_ajaxfailed: 'Request failed. Please try again.',
 
@@ -1211,8 +1211,8 @@
     };
 
     $(document)
-        .on('close.modalBox', closeTopmostModal)
-        .on('click', '[data-modal]', modalOpenTrigger);
+        .on('close.stackbox', closeTopmostStackbox)
+        .on('click', '[data-stackbox]', openTrigger);
 
     $(window)
         .on('resize', windowResize)

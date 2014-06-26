@@ -5,7 +5,7 @@ html.noscroll {
   overflow: hidden;
 }
 
-.modals {
+.stackboxes {
 
 	.box-sizing(border-box);
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -18,7 +18,7 @@ html.noscroll {
 		.box-sizing(border-box);
 	}
 
-	.modal-wrapper {
+	.stackbox-wrapper {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -28,39 +28,39 @@ html.noscroll {
 		background: transparent;
 	}
 
-	.modal-backdrop {
+	.stackbox-backdrop {
 
 		cursor: default;
 		background: none;
 		opacity: 1;
 		filter: none;
 
-		.modal:first-child {
+		.stackbox:first-child {
 			border-color: @gray;
 			border-bottom-width: 3px;
 			box-shadow: none;
 		}
 	}
 
-	.modal-backdrop.modal-close-on-backdrop {
+	.stackbox-backdrop.stackbox-close-on-backdrop {
 		cursor: url(data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQGPAQEBfwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAg8BAQGvAQEBXwAAAAAAAAAAAAAAAAAAAAAFBQWfBAQE/wQEBP8FBQWfAAAAAAAAAAAAAAAAAAAAAAYGBg8EBATPBAQE/wQEBP8FBQVfAAAAAAAAAAAICAifCAgI/wgICP8ICAj/CAgI/wgICJ8AAAAAAAAAAAkJCQ8ICAjPCAgI/wgICP8ICAj/CAgI/wgICF8AAAAACwsL7wsLC/8LCwv/CwsL/wsLC/8LCwv/DAwMnw0NDQ8LCwvPCwsL/wsLC/8LCwv/CwsL/wsLC/8LCwuvAAAAAA4ODi8ODg7vDg4O/w4ODv8ODg7/Dg4O/w4ODv8ODg7/Dg4O/w4ODv8ODg7/Dg4O/w4ODv8ODg7PDg4ODwAAAAAAAAAAERERLxISEu8SEhL/EhIS/xISEv8SEhL/EhIS/xISEv8SEhL/EhIS/xISEv8SEhLPERERDwAAAAAAAAAAAAAAAAAAAAAVFRUvFRUV7xUVFf8VFRX/FRUV/xUVFf8VFRX/FRUV/xUVFf8VFRXPFRUVDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABkZGW8ZGRn/GRkZ/xkZGf8ZGRn/GRkZ/xkZGf8ZGRn/GBgYDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4eHg8cHBzPHBwc/xwcHP8cHBz/HBwc/xwcHP8cHBz/HBwc/x0dHZ8AAAAAAAAAAAAAAAAAAAAAAAAAACIiIg8gICDPICAg/yAgIP8gICD/ICAg/yAgIP8gICD/ICAg/yAgIP8gICD/ISEhnwAAAAAAAAAAAAAAACUlJQ8jIyPPIyMj/yMjI/8jIyP/IyMj/yMjI/8jIyP/IyMj/yMjI/8jIyP/IyMj/yMjI/8kJCSfAAAAAAAAAAAnJyfPJycn/ycnJ/8nJyf/Jycn/ycnJ/8nJyfPJiYmbycnJ+8nJyf/Jycn/ycnJ/8nJyf/Jycn/ygoKG8AAAAAKioq7yoqKv8qKir/Kioq/yoqKv8qKirPKSkpDwAAAAApKSkvKioq7yoqKv8qKir/Kioq/yoqKv8qKiqPAAAAAC0tLS8uLi7vLi4u/y4uLv8uLi7PLS0tDwAAAAAAAAAAAAAAAC0tLS8uLi7vLi4u/y4uLv8uLi6fAAAAAAAAAAAAAAAAMDAwLzExMe8xMTHPMDAwDwAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwLzExMe8xMTGfAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7/cAAMPjAACBwQAAgIAAAMABAADgAwAA8AcAAPgPAADwBwAA4AMAAMABAACAgQAAgcAAAMPhAADn8wAA//8AAA==)
-		8 8, default; // Replace cursor with black X to indicate it closes the modal.
+		8 8, default; // Replace cursor with black X to indicate it closes the stackbox.
 	}
 
-	.modal-backdrop:last-child {
-		background: @modal-backdrop-bg;
+	.stackbox-backdrop:last-child {
+		background: @stackbox-backdrop-bg;
 	}
 
-	.modal {
+	.stackbox {
 		pointer-events: auto;
 		width: auto;
 		float: left;
-		background: @modal-bg;
+		background: @stackbox-bg;
 		position: absolute;
 		margin: 0;
 		transition: none;
 		.clearfix();
-		border: 1px solid @modal-border-color;
+		border: 1px solid @stackbox-border-color;
 		box-shadow: 0 0px 15px 10px rgba(0,0,0,0.15);
 		cursor: auto;
 		.border-radius(6px);
@@ -99,18 +99,18 @@ html.noscroll {
 			}
 		}
 
-		.modal-header {
+		.stackbox-header {
 			padding: 15px;
 			border-bottom: 1px solid #e5e5e5;
 			min-height: 16.42857143px;
 		}
 
-		.modal-body {
+		.stackbox-body {
 			position: relative;
 			padding: 20px;
 		}
 
-		.modal-footer {
+		.stackbox-footer {
 			margin-top: 15px;
 			padding: 19px 20px 20px;
 			text-align: right;
@@ -118,10 +118,10 @@ html.noscroll {
 		}
 	}
 
-	.modal-close {
+	.stackbox-close {
 		.border-radius(24px);
 		.size(24px, 24px);
-		background: @modal-close-bg;
+		background: @stackbox-close-bg;
 		position: absolute;
 		float: right;
 		top: -8px;
@@ -163,7 +163,7 @@ html.noscroll {
 		}
 	}
 
-	.modal-arrow {
+	.stackbox-arrow {
 		z-index: 1;
 
 		&,
@@ -177,70 +177,70 @@ html.noscroll {
 		}
 	}
 
-	.modal-arrow {
-		border-width: @modal-arrow-outer-width;
+	.stackbox-arrow {
+		border-width: @stackbox-arrow-outer-width;
 	}
 
-	.modal-arrow:after {
-		border-width: @modal-arrow-width;
+	.stackbox-arrow:after {
+		border-width: @stackbox-arrow-width;
 		content: "";
 	}
 
-	.modal-arrow {
+	.stackbox-arrow {
 
 		&.top {
-			margin-left: -@modal-arrow-outer-width;
+			margin-left: -@stackbox-arrow-outer-width;
 			border-bottom-width: 0;
-			border-top-color: @modal-arrow-outer-color;
+			border-top-color: @stackbox-arrow-outer-color;
 
 			&:after {
 				content: " ";
 				bottom: 1px;
-				margin-left: -@modal-arrow-width;
+				margin-left: -@stackbox-arrow-width;
 				border-bottom-width: 0;
-				border-top-color: @modal-arrow-color;
+				border-top-color: @stackbox-arrow-color;
 			}
 		}
 
 		&.right {
-			margin-top: -@modal-arrow-outer-width;
+			margin-top: -@stackbox-arrow-outer-width;
 			border-left-width: 0;
-			border-right-color: @modal-arrow-outer-color;
+			border-right-color: @stackbox-arrow-outer-color;
 
 			&:after {
 				content: " ";
 				left: 1px;
-				bottom: -@modal-arrow-width;
+				bottom: -@stackbox-arrow-width;
 				border-left-width: 0;
-				border-right-color: @modal-arrow-color;
+				border-right-color: @stackbox-arrow-color;
 			}
 		}
 
 		&.bottom {
-			margin-left: -@modal-arrow-outer-width;
+			margin-left: -@stackbox-arrow-outer-width;
 			border-top-width: 0;
-			border-bottom-color: @modal-arrow-outer-color;
+			border-bottom-color: @stackbox-arrow-outer-color;
 
 			&:after {
 				content: " ";
 				top: 1px;
-				margin-left: -@modal-arrow-width;
+				margin-left: -@stackbox-arrow-width;
 				border-top-width: 0;
-				border-bottom-color: @modal-arrow-color;
+				border-bottom-color: @stackbox-arrow-color;
 			}
 		}
 
 		&.left {
-			margin-top: -@modal-arrow-outer-width;
+			margin-top: -@stackbox-arrow-outer-width;
 			border-right-width: 0;
-			border-left-color: @modal-arrow-outer-color;
+			border-left-color: @stackbox-arrow-outer-color;
 
 			&:after {
 				content: " ";
 				right: 1px;
 				border-right-width: 0;
-				border-left-color: @modal-arrow-color;
-				bottom: -@modal-arrow-width;
+				border-left-color: @stackbox-arrow-color;
+				bottom: -@stackbox-arrow-width;
 			}
 		}
 	}

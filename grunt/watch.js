@@ -9,7 +9,7 @@ module.exports = {
         tasks: ['uglify']
     },
     css: {
-        files: ['plugin/src/jquery.stackbox.less'],
+        files: ['plugin/src/*.less'],
         tasks: ['less', 'autoprefixer']
     },
 }
