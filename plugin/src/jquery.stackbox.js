@@ -701,10 +701,10 @@
             }
 
             if (this.options.width !== 'auto') {
-                stackboxWidth = this.getStackboxWidth();
+                stackboxWidth = this.calcStackboxWidth();
 
                 if (this.options.respectBrowserWidth) {
-                    if (windowWidth < stackboxWidth + minMarginRight) {
+                    if ((stackboxWidth + minMarginRight) > windowWidth) {
                         stackboxWidth = windowWidth - minMarginRight;
                     }
                 }
@@ -901,7 +901,7 @@
             }
         },
 
-        getStackboxWidth: function() {
+        calcStackboxWidth: function() {
 
             var windowWidth = $(window).width(),
                 stackboxWidth = this.options.width,
@@ -1198,7 +1198,7 @@
         content: false, // html, or id selector for jQuery
 
         // Size
-        width: 'auto', // Could also be % values.
+        width: 'auto',
         maxWidth: false, // Maximum width when width is in percent.
         minWidth: false, // Minimum width when width is in percent.
         respectBrowserWidth: true, // Never make a stackbox wider than browser window.
