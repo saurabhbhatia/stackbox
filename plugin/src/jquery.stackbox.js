@@ -1176,6 +1176,8 @@
 
     $.fn.stackbox.settings = {
 
+        content: false, // html, or id selector for jQuery
+
         // Size
         width: 'auto', // Could also be % values.
         maxWidth: 9999, // This will be maximum allowed width. (Only useful if width is in %). 9999 == we dont pixel limit, other than window.width - 2 x margins of 10px via later calculations.
@@ -1214,9 +1216,7 @@
         afterOpen: $.noop,
         beforeClose: $.noop,
         afterClose: $.noop,
-        onError: $.noop,
-
-        content: false, // html, or id selector for jQuery
+        onError: $.noop
     };
 
     $(document)

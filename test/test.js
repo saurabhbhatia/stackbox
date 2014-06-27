@@ -2,14 +2,16 @@ $(document).ready(function() {
 
     QUnit.module('Core', {
         setup: function() {
-            $('#open-stackbox').stackbox();
+            //$('#open-stackbox').stackbox();
         },
         teardown: function() {
-            $(document).trigger('close.stackbox');
+            //$(document).trigger('close.stackbox');
         }
     });
 
     QUnit.test('Elements', function(assert) {
+
+        $('#open-stackbox').stackbox();
 
         var $mainWrapper = $('.stackboxes');
         assert.strictEqual(1, $mainWrapper.length, 'Only one base wrapper');
@@ -25,9 +27,32 @@ $(document).ready(function() {
 
         var $closeButton = $wrapper.find('.stackbox-close');
         assert.strictEqual(1, $closeButton.length, 'Only one close button');
+
+        var $content = $stackbox.children();
+        assert.strictEqual(3, $content.length, 'Three content divs');
+
+        $(document).trigger('close.stackbox');
+    });
+
+    QUnit.test('Backdrop', function(assert) {
+
+        $('#open-stackbox').stackbox({
+            backdrop: true
+        });
+
+        var $mainWrapper = $('.stackboxes');
+        var $wrapper = $mainWrapper.find('.stackbox-wrapper');
+
+        assert.strictEqual(true, $wrapper.hasClass('stackbox-close-on-backdrop'), '.stackbox-close-on-backdrop is set');
+        assert.strictEqual(true, $wrapper.hasClass('stackbox-backdrop'), '.stackbox-backdrop is set');
+
+        $(document).trigger('close.stackbox');
     });
 
     QUnit.asyncTest('Close', function(assert) {
+
+        $('#open-stackbox').stackbox();
+
         expect(4);
 
         $(document).on('close.stackbox', function() {
@@ -41,10 +66,11 @@ $(document).ready(function() {
             assert.strictEqual(0, $wrapper.length);
             assert.strictEqual(0, $mainWrapper.length);
 
-            $(document).off('close.stackbox');
+            // $(document).off('close.stackbox');
             QUnit.start();
         });
 
         $(document).trigger('close.stackbox');
     });
+
 });
