@@ -8,7 +8,7 @@
         stackboxes = [],
         domElements = [],
         minMarginLeft = 20,
-        minMarginRight = 30,
+        minMarginRight = 34,
         minMarginTop = 10,
         defaultStackboxClass = 'stackbox',
         defaultWrapperClass = 'stackbox-wrapper',
@@ -904,13 +904,32 @@
         getStackboxWidth: function() {
 
             var windowWidth = $(window).width(),
-                stackboxWidth = this.options.width;
+                stackboxWidth = this.options.width,
+                maxWidth = this.options.maxWidth === false ? 10000 : parseInt(this.options.maxWidth, 10),
+                minWidth = this.options.minWidth === false ? 0 : parseInt(this.options.minWidth, 10);
 
             if (typeof stackboxWidth === 'string') {
-                stackboxWidth = windowWidth * parseInt(this.options.width, 10) * 0.01; // Convert % to pixels.
+
+                stackboxWidth = parseInt(this.options.width, 10);
+
+                if (this.options.width.indexOf('%') !== -1) {
+                    stackboxWidth = windowWidth * (stackboxWidth / 100);
+                }
             }
 
-            return Math.max(this.options.minWidth, Math.min(windowWidth - 20, Math.min(Number(this.options.maxWidth), stackboxWidth)));
+            if (stackboxWidth > maxWidth) {
+                stackboxWidth = maxWidth;
+            }
+
+            if (stackboxWidth > (windowWidth - minMarginRight)) {
+                stackboxWidth = windowWidth - minMarginRight;
+            }
+
+            if (stackboxWidth < minWidth) {
+                stackboxWidth = minWidth;
+            }
+
+            return stackboxWidth;
         },
 
         autoScroll: function() {
@@ -1180,8 +1199,8 @@
 
         // Size
         width: 'auto', // Could also be % values.
-        maxWidth: 9999, // This will be maximum allowed width. (Only useful if width is in %). 9999 == we dont pixel limit, other than window.width - 2 x margins of 10px via later calculations.
-        minWidth: 100, // Pixel min width of stackbox. If set, stackboxes will not be allowed to be narrower than this.
+        maxWidth: false, // Maximum width when width is in percent.
+        minWidth: false, // Minimum width when width is in percent.
         respectBrowserWidth: true, // Never make a stackbox wider than browser window.
 
         // Scrolling
