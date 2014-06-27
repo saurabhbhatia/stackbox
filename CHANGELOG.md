@@ -1,5 +1,8 @@
 #Stackbox Changelog
 
+##0.2.4 (June 27, 2014)
+* Fixed width options (width/minWidth/maxWidth/respectBrowserWidth)
+
 ##0.2.3 (June 27, 2014)
 * Added docs
 

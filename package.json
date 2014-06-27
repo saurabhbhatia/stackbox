@@ -1,6 +1,6 @@
 {
     "name": "stackbox",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "Stackable modal boxes",
     "main": "jquery.stackbox.js",
     "dependencies": {
