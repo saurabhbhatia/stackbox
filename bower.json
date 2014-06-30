@@ -24,7 +24,6 @@
         "jquery": "~2"
     },
     "devDependencies": {
-        "qunit": "~1.14.0",
-        "font-awesome": "~4.1.0"
+        "qunit": "~1.14.0"
     }
 }
