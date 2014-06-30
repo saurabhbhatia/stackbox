@@ -19,7 +19,7 @@
     }],
     "bugs": "https://github.com/stebru/stackbox/issues",
     "homepage": "https://github.com/stebru/stackbox",
-    "docs": "http://stefan.codes/stackbox.html",
+    "docs": "http://stefan.codes/stackbox/",
     "dependencies": {
         "jquery": ">=2.0"
     }
