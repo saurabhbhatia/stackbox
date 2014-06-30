@@ -886,8 +886,10 @@
                     } else if (params.top + params.height + $(window).scrollTop() > $(document).height()) {
 
                         if (!$('html').hasClass(this.options.noscrollClass)) { // Wrapper can scroll, i.e. there's always room below.
-                            css = this.positionTop(params); // Position above if not room below.
-                            this.$stackbox.css(css);
+                            if (params.top + params.height < $(window).height()) {
+                                css = this.positionTop(params); // Position above if not room below.
+                                this.$stackbox.css(css);
+                            }
                         }
                     }
                 }
