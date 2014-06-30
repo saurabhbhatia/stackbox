@@ -1195,19 +1195,17 @@
 
     $.fn.stackbox.settings = {
 
-        content: false, // html, or id selector for jQuery
+        content: false,
 
-        // Size
         width: 'auto',
         maxWidth: false, // Maximum width when width is in percent.
         minWidth: false, // Minimum width when width is in percent.
-        respectBrowserWidth: true, // Never make a stackbox wider than browser window.
+        respectBrowserWidth: true,
 
-        // Scrolling
-        scrollSpeed: 600, // In milliseconds
+        scrollSpeed: 600,
         scrollEasing: 'easeOutCirc',
 
-        backdrop: 'auto', // Show backdrop?
+        backdrop: 'auto',
         closeOnBackdrop: true,
         position: 'bottom',
         marginX: 15, // Pixels x-tra away from its relative element. Works more like margin.
@@ -1230,7 +1228,6 @@
         closeButton: true,
         requestFailed: 'Request failed. Please try again.',
 
-        // Callbacks
         beforeOpen: $.noop,
         afterOpen: $.noop,
         beforeClose: $.noop,
