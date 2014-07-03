@@ -1,5 +1,8 @@
 #Stackbox Changelog
 
+##0.2.5 (July 03, 2014)
+* Fixed bug where modal was positioning itself above offspring element even if without checking if there actually was any room for it.
+
 ##0.2.4 (June 27, 2014)
 * Fixed width options (width/minWidth/maxWidth/respectBrowserWidth)
 
