@@ -13,4 +13,4 @@ A jQuery plugin for creating stackable modal boxes.
 
 Copyright © 2014 Stefan Bruvik.
 
-(This plugin was forked from code written by Ivar Borthen i 2012.)
+*<sub>(This plugin was forked from code written by Ivar Borthen i 2012.)</sub>*
