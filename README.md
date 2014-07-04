@@ -9,6 +9,8 @@ A jQuery plugin for creating stackable modal boxes.
 
 ## Installation
 
+**Note:** For animations to work, you need to include [Animate.css](https://github.com/daneden/animate.css "Animate.css")
+
 ### Bower
 
 ``` bash
