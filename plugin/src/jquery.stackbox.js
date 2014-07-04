@@ -1,3 +1,15 @@
+/*
+   --------------------------------
+   Stackbox.js
+   --------------------------------
+   + https://github.com/stebru/stackbox
+   + version 0.2.5
+   + Copyright 2014 Stefan Bruvik
+   + Licensed under the MIT license
+
+   + Documentation: http://stefan.codes/stackbox
+ */
+
 /* global jQuery */
 (function stackbox($, window) {
 
