@@ -12,7 +12,7 @@ A jQuery plugin for creating stackable modal boxes.
 ### Bower
 
 ```
-bower install stackbox --save
+$ bower install stackbox --save
 ```
 
 The source files can be found in the `plugin/src/` folder.
