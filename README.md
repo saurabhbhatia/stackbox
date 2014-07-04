@@ -11,13 +11,25 @@ A jQuery plugin for creating stackable modal boxes.
 
 ### Bower
 
-```
+``` bash
 $ bower install stackbox --save
 ```
 
-The source files can be found in the `plugin/src/` folder.
+The source files can be found in the `plugin/src/` folder, and minified versions in `plugin/dist/`
 
-Include `jquery.stackbox.js` and `jquery.stackbox.css` to your page.
+Include `plugin/src/jquery.stackbox.js` and `plugin/src/jquery.stackbox.css` , or `plugin/dist/jquery.stackbox.min.js` and `plugin/dist/jquery.stackbox.min.css` to your page.
+
+### Other
+
+Hit the Download ZIP button to the right, and extract its contents to your project.
+
+Add the js and css files:
+
+``` html
+<link rel="stylesheet" href="jquery.stackbox.min.css">
+
+<script src="jquery.stackbox.min.js"></script>
+```
 
 =====
 
