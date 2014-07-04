@@ -1036,17 +1036,6 @@
                 }
             }
 
-            if (stackboxes.length) {
-                nextStackbox = stackboxes[stackboxes.length - 2];
-                if (nextStackbox) {
-                    if (nextStackbox.options.closeOnBackdrop === true) {
-                        nextStackbox.$wrapper.addClass('stackbox-close-on-backdrop');
-                    } else {
-                        nextStackbox.$wrapper.removeClass('stackbox-close-on-backdrop');
-                    }
-                }
-            }
-
             if (instant !== true && this.options.animClose) {
 
                 animDone = function animDone() {
