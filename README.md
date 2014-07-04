@@ -5,7 +5,7 @@ Stackbox.js
 
 A jQuery plugin for creating stackable modal boxes.
 
-## [Documentation](http://stefan.codes/stackbox/ "Stackbox Documentation")
+## [Documentation & Examples](http://stefan.codes/stackbox/ "Stackbox Documentation")
 
 ## Installation
 
