@@ -31,6 +31,11 @@ Add the js and css files:
 <script src="jquery.stackbox.min.js"></script>
 ```
 
+## Changes
+
+Changelog can be found [here](https://github.com/stebru/stackbox/blob/master/CHANGELOG.md "Stackbox Changelog").
+
+
 =====
 
 Copyright © 2014 Stefan Bruvik.
