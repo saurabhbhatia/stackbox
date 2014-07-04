@@ -17,7 +17,7 @@ $ bower install stackbox --save
 
 The source files can be found in the `plugin/src/` folder, and minified versions in `plugin/dist/`
 
-Include `plugin/src/jquery.stackbox.js` and `plugin/src/jquery.stackbox.css` , or `plugin/dist/jquery.stackbox.min.js` and `plugin/dist/jquery.stackbox.min.css` to your page.
+Include either `plugin/src/jquery.stackbox.js` + `plugin/src/jquery.stackbox.css` , or `plugin/dist/jquery.stackbox.min.js` + `plugin/dist/jquery.stackbox.min.css` to your page.
 
 ### Other
 
