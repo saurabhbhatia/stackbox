@@ -294,7 +294,7 @@
                 }.bind(this);
 
                 if (css3animsupported) {
-                    this.$stackbox.addClass('animated ' + this.options.animOpen).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
+                    this.$stackbox.addClass('animated ' + this.options.animOpen).on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', animDone);
                 } else {
                     animDone();
                 }
