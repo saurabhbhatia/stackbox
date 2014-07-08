@@ -287,10 +287,9 @@
                 this.loadAjax(this.options.content);
             } else {
 
-                this.afterOpen(true);
-
                 animDone = function animDone() {
                     this.$stackbox.removeClass('animated ' + this.options.animOpen);
+                    this.afterOpen(true);
                 }.bind(this);
 
                 if (css3animsupported) {
