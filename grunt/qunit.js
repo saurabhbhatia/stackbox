@@ -3,8 +3,8 @@
 module.exports = {
     options: {
         urls: [
-            'http://localhost:3000/test/index.html',
+            'http://127.0.0.1:8000/test/index.html',
         ]
     },
-    all: ['test/index.html']
+    all: ['http://127.0.0.1:8000/test/index.html']
 };
