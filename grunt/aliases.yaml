@@ -4,4 +4,9 @@ default:
   - 'autoprefixer'
   - 'jshint'
   - 'uglify'
+  - 'qunit'
   - 'watch'
+
+test:
+  - 'jshint'
+  - 'qunit'
