@@ -3,7 +3,7 @@ $(document).ready(function() {
     QUnit.module('Core', {
         setup: function() {
             //$('#open-stackbox').stackbox();
-            $(document).trigger('close.stackbox');
+            //$(document).trigger('close.stackbox');
         },
         teardown: function() {
             $('.stackboxes').remove();
@@ -127,27 +127,27 @@ $(document).ready(function() {
     //     $(document).trigger('close.stackbox');
     // });
 
-    QUnit.asyncTest('Close', function(assert) {
+    // QUnit.asyncTest('Close', function(assert) {
 
-        $('#open-stackbox').stackbox();
+    //     $('#open-stackbox').stackbox();
 
-        expect(4);
+    //     expect(4);
 
-        $(document).on('close.stackbox', function() {
-            assert.ok(true, 'Stackbox Closed');
+    //     $(document).on('close.stackbox', function() {
+    //         assert.ok(true, 'Stackbox Closed');
 
-            var $mainWrapper = $('.stackboxes');
-            var $wrapper = $mainWrapper.find('.stackbox-wrapper');
-            var $stackbox = $wrapper.find('.stackbox');
+    //         var $mainWrapper = $('.stackboxes');
+    //         var $wrapper = $mainWrapper.find('.stackbox-wrapper');
+    //         var $stackbox = $wrapper.find('.stackbox');
 
-            assert.strictEqual(0, $stackbox.length);
-            assert.strictEqual(0, $wrapper.length);
-            assert.strictEqual(0, $mainWrapper.length);
+    //         assert.strictEqual(0, $stackbox.length);
+    //         assert.strictEqual(0, $wrapper.length);
+    //         assert.strictEqual(0, $mainWrapper.length);
 
-            // $(document).off('close.stackbox');
-            QUnit.start();
-        });
+    //         // $(document).off('close.stackbox');
+    //         QUnit.start();
+    //     });
 
-        $(document).trigger('close.stackbox');
-    });
+    //     $(document).trigger('close.stackbox');
+    // });
 });
