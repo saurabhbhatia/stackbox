@@ -33,5 +33,8 @@
     "bugs": {
         "url": "https://github.com/stebru/stackbox/issues"
     },
-    "homepage": "https://github.com/stebru/stackbox"
+    "homepage": "https://github.com/stebru/stackbox",
+    "scripts": {
+        "test": "grunt test"
+    }
 }
