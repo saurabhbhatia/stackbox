@@ -35,5 +35,5 @@
     "homepage": "https://github.com/stebru/stackbox",
     "scripts": {
         "test": "grunt test"
-    },
+    }
 }
