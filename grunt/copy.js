@@ -6,14 +6,11 @@ module.exports = {
             nonull: true
         },
         files: [{
-            filter: 'isFile',
-            expand: true,
-            flatten: true,
-            src: 'bower_components/font-awesome/fonts/*',
-            dest: 'demo/fonts/'
+            src: 'bower_components/animate.css/animate.css',
+            dest: 'test/animate.css'
         }, {
-            src: 'bower_components/font-awesome/css/font-awesome.css',
-            dest: 'demo/css/font-awesome.css'
+            src: 'bower_components/animate.css/animate.js',
+            dest: 'test/animate.js'
         }]
     }
 };
