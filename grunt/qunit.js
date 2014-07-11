@@ -1,7 +1,7 @@
 // https://www.npmjs.org/package/grunt-contrib-qunit
 
 module.exports = {
-    all: {
+    travis: {
         options: {
             urls: [
                 'http://127.0.0.1:8080/test/index.html'

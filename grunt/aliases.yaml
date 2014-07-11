@@ -8,10 +8,10 @@ default:
   - 'qunit:local'
   - 'watch'
 
-test:
+test-travis:
   - 'jshint'
   - 'connect'
-  - 'qunit'
+  - 'qunit:travis'
 
 test-local:
   - 'jshint'
