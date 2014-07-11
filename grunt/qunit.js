@@ -9,5 +9,14 @@ module.exports = {
             timeout: 10000,
             screenshot: false
         }
+    },
+    local: {
+        options: {
+            urls: [
+                'http://127.0.0.1:8080/test/local.html'
+            ],
+            timeout: 5000,
+            screenshot: true
+        }
     }
 };
