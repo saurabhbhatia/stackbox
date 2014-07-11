@@ -287,6 +287,8 @@
                 this.loadAjax(this.options.content);
             } else {
 
+                this.updatePosition();
+
                 animDone = function animDone() {
                     this.$stackbox.removeClass('animated ' + this.options.animOpen);
                     this.afterOpen(true);
