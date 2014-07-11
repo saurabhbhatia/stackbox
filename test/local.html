@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Stackbox test</title>
+		<link rel="stylesheet" href="../plugin/dist/jquery.stackbox.min.css">
+		<link rel="stylesheet" href="animate.css">
+		<link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css">
+	</head>
+	<body>
+
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+
+		<div id="stackbox" style="display: none;"><div class="stackbox-body">Content</div></div>
+
+		<a id="open-stackbox" href="#stackbox" data-stackbox="true">Stackbox</a>
+
+		<script src="../bower_components/jquery/dist/jquery.js"></script>
+		<script src="../bower_components/qunit/qunit/qunit.js"></script>
+		<script src="../plugin/src/jquery.stackbox.js"></script>
+		<script src="es5-shim.js"></script>
+		<script src="test.js"></script>
+	</body>
+</html>

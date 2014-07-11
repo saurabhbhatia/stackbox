@@ -5,10 +5,15 @@ default:
   - 'jshint'
   - 'uglify'
   - 'connect'
-  - 'qunit'
+  - 'qunit:local'
   - 'watch'
 
-test:
+test-travis:
   - 'jshint'
   - 'connect'
-  - 'qunit'
+  - 'qunit:travis'
+
+test-local:
+  - 'jshint'
+  - 'connect'
+  - 'qunit:local'

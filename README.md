@@ -1,4 +1,4 @@
-Stackbox.js 
+Stackbox.js
 ============
 
 ### Version 0.2.5
@@ -11,7 +11,7 @@ A jQuery plugin for creating stackable modal boxes.
 
 ## Installation
 
-**Note:** For animations to work, you need to include [Animate.css](https://github.com/daneden/animate.css "Animate.css") (or just [create](http://cssanimate.com/ "CSS3 Keyframe Animation Generator") [your](http://www.css3maker.com/css3-animation.html "CSS Animation | CSS 3.0 Maker") [own](http://css-tricks.com/snippets/css/keyframe-animation-syntax/ "Keyframe Animation Syntax | CSS Tricks")).
+**Note:** For animations to work, you need to include [Animate.css](https://github.com/daneden/animate.css "Animate.css") or some other CSS3 keyframe animation library (or just [create](http://cssanimate.com/ "CSS3 Keyframe Animation Generator") [your](http://www.css3maker.com/css3-animation.html "CSS Animation | CSS 3.0 Maker") [own](http://css-tricks.com/snippets/css/keyframe-animation-syntax/ "Keyframe Animation Syntax | CSS Tricks")).
 
 ### Bower
 

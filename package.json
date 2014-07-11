@@ -37,6 +37,6 @@
     },
     "homepage": "https://github.com/stebru/stackbox",
     "scripts": {
-        "test": "grunt test --verbose"
+        "test": "grunt test-travis --verbose"
     }
 }
