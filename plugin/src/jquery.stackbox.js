@@ -1064,7 +1064,7 @@
                 }.bind(this);
 
                 if (css3animsupported) {
-                    this.$stackbox.addClass('animated ' + this.options.animClose).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
+                    this.$stackbox.addClass('animated ' + this.options.animClose).on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', animDone);
                 } else {
                     this.$stackbox.fadeOut(200, function fadeOutDone() {
                         animDone();
