@@ -1,5 +1,11 @@
 #Stackbox Changelog
 
+##0.2.6 (July 11, 2014)
+* Fixed positioning bug when using animation on open.
+* Added animation end detection support for Opera.
+* QUnit tests are now running properly on Travis CI.
+* .editorconfig added to project.
+
 ##0.2.5 (July 03, 2014)
 * Fixed bug where modal was positioning itself above offspring element even if without checking if there actually was any room for it.
 
