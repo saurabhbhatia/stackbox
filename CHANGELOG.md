@@ -1,5 +1,8 @@
 #Stackbox Changelog
 
+##0.2.7 (October 17, 2014)
+* Fixed issue where the modal's content was hidden below the browser window.
+
 ##0.2.6 (July 11, 2014)
 * Fixed positioning bug when using animation on open.
 * Added animation end detection support for Opera.

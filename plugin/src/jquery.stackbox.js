@@ -3,7 +3,7 @@
    Stackbox.js
    --------------------------------
    + https://github.com/stebru/stackbox
-   + version 0.2.5
+   + version 0.2.7
    + Copyright 2014 Stefan Bruvik
    + Licensed under the MIT license
 
@@ -892,16 +892,15 @@
                         this.$stackbox.css('top', minMarginTop);
                     }
                 } else {
-
                     if (params.top < minMarginTop) {
                         css = this.positionBottom(params); // Position below if not room above.
                         this.$stackbox.css(css);
                     } else if (params.top + params.height + $(window).scrollTop() > $(document).height()) {
-
                         if (!$('html').hasClass(this.options.noscrollClass)) { // Wrapper can scroll, i.e. there's always room below.
-                            if (params.top + params.height < $(window).height()) {
-                                css = this.positionTop(params); // Position above if not room below.
-                                this.$stackbox.css(css);
+                            if (params.top + params.height > $(window).height()) {
+                                this.$wrapper.css('overflow', 'auto');
+                                this.$wrapper.css('pointer-events', 'all');
+                                $('body').css('overflow', 'hidden');
                             }
                         }
                     }
