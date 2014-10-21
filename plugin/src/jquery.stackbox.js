@@ -3,7 +3,7 @@
    Stackbox.js
    --------------------------------
    + https://github.com/stebru/stackbox
-   + version 0.2.7
+   + version 0.2.8
    + Copyright 2014 Stefan Bruvik
    + Licensed under the MIT license
 
@@ -1116,6 +1116,7 @@
 
             if (stackboxCounter === 0) {
                 this.$wrapperWrapper.remove();
+                $('body').css('overflow', 'auto');
             }
 
             if (this.$wrapper.children().length === 0) {

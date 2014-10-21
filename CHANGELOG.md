@@ -1,5 +1,8 @@
 #Stackbox Changelog
 
+##0.2.8 (October 21, 2014)
+* Body's overflow now gets reset to 'auto' when closing the last modal.
+
 ##0.2.7 (October 17, 2014)
 * Fixed issue where the modal's content was hidden below the browser window.
 
