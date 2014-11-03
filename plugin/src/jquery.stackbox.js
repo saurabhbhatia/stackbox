@@ -3,7 +3,7 @@
    Stackbox.js
    --------------------------------
    + https://github.com/stebru/stackbox
-   + version 0.2.8
+   + version 0.2.9
    + Copyright 2014 Stefan Bruvik
    + Licensed under the MIT license
 
@@ -237,6 +237,11 @@
 
             this.options = $.extend({}, $.fn.stackbox.settings, options, $.fn.stackbox.globalSettings);
 
+            this.previousDimensions = {
+                width: 0,
+                height: 0
+            };
+
             if (this.options.position === 'fixed') {
                 this.options.position = 'absolute';
             }
@@ -436,6 +441,19 @@
         },
 
         addEventListeners: function() {
+
+            if (this.options.autoadjust === true) {
+                var checkDimensions = function check() {
+
+                    if (this.$stackbox.outerWidth() !== this.previousDimensions.width || this.$stackbox.outerHeight() !== this.previousDimensions.height) {
+                        this.updatePosition();
+                    }
+
+                    this.timeoutID = window.setTimeout(checkDimensions, 250);
+                }.bind(this);
+
+                checkDimensions();
+            }
 
             this.$stackbox.on('click', '[data-close-stackbox="true"]', {
                 stackbox: this.$stackbox
@@ -1100,6 +1118,8 @@
             } else {
                 $('html').addClass(this.options.noscrollClass);
             }
+
+            window.clearTimeout(this.timeoutID);
 
             stackboxes.pop();
             stackboxCounter = stackboxes.length;

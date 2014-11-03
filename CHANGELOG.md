@@ -1,5 +1,8 @@
 #Stackbox Changelog
 
+##0.2.9 (November 3, 2014)
+* If a modal's content changes, thereby affecting its width and/or height, its position is also automatically updated (providing the 'autoadjust' options is set to true.)
+
 ##0.2.8 (October 21, 2014)
 * Body's overflow now gets reset to 'auto' when closing the last modal.
 
