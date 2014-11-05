@@ -1,5 +1,8 @@
 #Stackbox Changelog
 
+##0.2.10 (November 5, 2014)
+* Added a 'whitelist' global option. This will allow one to supply a list of class names that should be whitelisted when checking if a modal should be closed when clicking on an element. If an element is clicked, and one of its parents has a class name matching one in the whitelist, the modal won't get closed.
+
 ##0.2.9 (November 3, 2014)
 * If a modal's content changes, thereby affecting its width and/or height, its position is also automatically updated (providing the 'autoadjust' options is set to true.)
 

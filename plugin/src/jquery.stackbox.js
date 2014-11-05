@@ -174,6 +174,14 @@
             }
         }
 
+        if ($.fn.stackbox.globalSettings && $.fn.stackbox.globalSettings.whitelist) {
+            for (i = 0; i < $.fn.stackbox.globalSettings.whitelist.length; i++) {
+                if ($element.parents('.' + $.fn.stackbox.globalSettings.whitelist[i]).length) {
+                    return true;
+                }
+            }
+        }
+
         // Clicked outside of stackbox, i.e. on wrapper.
         targetGroup = $element.data('stackboxGroup');
         if (targetGroup) {
