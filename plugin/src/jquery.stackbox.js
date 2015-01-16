@@ -3,7 +3,7 @@
    Stackbox.js
    --------------------------------
    + https://github.com/stebru/stackbox
-   + version 0.3.0
+   + version 0.3.1
    + Copyright 2014 Stefan Bruvik
    + Licensed under the MIT license
 

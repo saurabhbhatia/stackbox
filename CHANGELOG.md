@@ -1,5 +1,8 @@
 #Stackbox Changelog
 
+##0.3.1 (January 16, 2015)
+* Fixed a bug where the close animation failed, because the animation end event handlers were registered twice.
+
 ##0.3.0 (November 5, 2014)
 * Follow semantic versioning.
 
