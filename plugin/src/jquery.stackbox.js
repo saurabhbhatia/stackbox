@@ -24,7 +24,8 @@
         minMarginTop = 10,
         defaultStackboxClass = 'stackbox',
         defaultWrapperClass = 'stackbox-wrapper',
-        css3animsupported = false;
+        css3animsupported = false,
+        animationEventNames = 'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd';
 
     function returnFunction(fn) {
 
@@ -308,7 +309,7 @@
                 }.bind(this);
 
                 if (css3animsupported) {
-                    this.$stackbox.addClass('animated ' + this.options.animOpen).on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', animDone);
+                    this.$stackbox.addClass('animated ' + this.options.animOpen).off(animationEventNames).on(animationEventNames, animDone);
                 } else {
                     animDone();
                 }
@@ -593,7 +594,7 @@
                 }.bind(this);
 
                 if (css3animsupported) {
-                    this.$stackbox.show(0).addClass('animated ' + this.options.animOpen).on('animationend webkitAnimationEnd MSAnimationEnd', animDone);
+                    this.$stackbox.show(0).addClass('animated ' + this.options.animOpen).off(animationEventNames).on(animationEventNames, animDone);
                 } else {
                     this.$stackbox.fadeIn(200, function fadeInDone() {
                         animDone();
@@ -1091,7 +1092,7 @@
                 }.bind(this);
 
                 if (css3animsupported) {
-                    this.$stackbox.addClass('animated ' + this.options.animClose).on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', animDone);
+                    this.$stackbox.addClass('animated ' + this.options.animClose).off(animationEventNames).on(animationEventNames, animDone);
                 } else {
                     this.$stackbox.fadeOut(200, function fadeOutDone() {
                         animDone();
