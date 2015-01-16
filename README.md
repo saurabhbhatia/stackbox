@@ -42,6 +42,6 @@ Changelog can be found [here](https://github.com/stebru/stackbox/blob/master/CHA
 
 =====
 
-Copyright © 2014 Stefan Bruvik.
+Copyright © 2014-2015 Stefan Bruvik.
 
 *<sub>(This plugin was forked from code written by Ivar Borthen i 2012.)</sub>*
