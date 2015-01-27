@@ -1296,13 +1296,13 @@
             domPrefixes = 'Webkit Moz O ms Khtml'.split(' '),
             pfx = '';
 
-        if (document.body.style.animationName !== undefined) {
+        if (document.documentElement.style.animationName !== undefined) {
             css3animsupported = true;
         }
 
         if (css3animsupported === false) {
             for (var i = 0; i < domPrefixes.length; i++) {
-                if (document.body.style[domPrefixes[i] + 'AnimationName'] !== undefined) {
+                if (document.documentElement.style[domPrefixes[i] + 'AnimationName'] !== undefined) {
                     pfx = domPrefixes[i];
                     animationstring = pfx + 'Animation';
                     keyframeprefix = '-' + pfx.toLowerCase() + '-';
